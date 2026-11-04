@@ -67,8 +67,8 @@ document.addEventListener('DOMContentLoaded', function () {
         (data.get('mensagem') || '—')
       ].join('\n');
 
-      // TODO: substituir pelo email real da Clo
-      var to = 'encomendas@casaclo.pt';
+      // Caixa na Hostinger; MX/SPF/DKIM a activar na DNS Netlify
+      var to = 'encomendas@casaclodoces.com';
       var subject = 'Pedido Casa Clo — ' + (data.get('nome') || 'sem nome');
 
       var mailto = 'mailto:' + to

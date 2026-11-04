@@ -2,112 +2,86 @@
 
 Site institucional da Casa Clo, doçaria artesanal em Lisboa e Margem Sul.
 
-Site estático puro (HTML + CSS + JavaScript), sem dependências nem build step.
+Site estático puro (HTML + CSS + JS), sem dependências nem build step.
+
+**Produção:** `https://casaclodoces.com` (Netlify; o URL `casaclo.netlify.app`
+serve o mesmo deploy).
 
 ---
 
 ## Estrutura do projecto
 
 ```
-casa-clo/
-├── index.html        ← página principal
-├── style.css         ← estilos (cores, layout, responsivo)
-├── script.js         ← menu mobile + envio do formulário
-├── images/           ← 16 imagens dos doces
-├── netlify.toml      ← configuração de cache e segurança
-├── .gitignore
+casaclo/
+├── index.html        ← homepage (vitrina, formulário de encomenda)
+├── loja.html         ← coleção completa (18 peças em 7 sub-colecções)
+├── eventos.html      ← mesas doces e eventos
+├── pecas.html        ← peças especiais / personalização
+├── clo.html          ← a história da Clo
+├── termos.html       ← termos e condições (minuta — campos [a preencher])
+├── privacidade.html  ← política de privacidade RGPD (minuta)
+├── info-alimentar.html ← alergénios e conservação (minuta)
+├── style.css         ← estilos (inclui @font-face auto-hospedadas)
+├── script.js         ← menu mobile + envio do formulário (mailto) + ano
+├── fonts/            ← 13 ficheiros .woff2 (Cormorant, Fraunces, Inter Tight, Italiana)
+├── images/           ← 41 imagens dos doces
+├── favicon.ico
+├── robots.txt
+├── netlify.toml      ← cache (imagens/fontes longas; HTML/CSS curto) + segurança
 └── README.md         ← este ficheiro
 ```
 
 ---
 
-## Como ver o site localmente (no seu computador)
+## Como ver o site localmente
 
-A forma mais simples é abrir o `index.html` no browser com duplo clique.
-
-Se preferir um servidor local (recomendado, porque carrega as fontes do Google sem aviso de CORS):
+Duplo clique no `index.html` chega; com servidor local é idêntico à produção
+(as fontes são auto-hospedadas, já não dependem do Google CDN):
 
 ```bash
-# Com Python (já vem instalado em macOS e Linux)
 python3 -m http.server 8000
-
-# Depois abrir no browser:  http://localhost:8000
+# abrir http://localhost:8000
 ```
 
 ---
 
-## Como pôr online via Netlify (passo-a-passo)
+## Publicar
 
-### Opção A — drag and drop (mais rápido, sem Git)
-
-1. Vá a [https://app.netlify.com/drop](https://app.netlify.com/drop)
-2. Arraste a pasta `casa-clo` inteira para a janela do browser
-3. Pronto — o Netlify dá-lhe um URL temporário (ex.: `gentle-tiramisu-12345.netlify.app`)
-4. Pode depois ligar um domínio próprio (ex.: `casaclo.pt`) nas definições
-
-### Opção B — via repositório Git (recomendado para actualizar com facilidade)
-
-1. **Criar o repositório no GitHub:**
-   - Vá a [github.com/new](https://github.com/new)
-   - Nome do repositório: `casa-clo` (ou outro à escolha)
-   - Deixe **público** ou **privado** — funciona em qualquer um
-
-2. **Enviar o código (no terminal, dentro da pasta do projecto):**
-
-   ```bash
-   git init
-   git add .
-   git commit -m "primeira versão do site"
-   git branch -M main
-   git remote add origin https://github.com/SEU-UTILIZADOR/casa-clo.git
-   git push -u origin main
-   ```
-
-3. **Ligar o repositório ao Netlify:**
-   - [app.netlify.com](https://app.netlify.com) → **Add new site** → **Import an existing project**
-   - Escolher GitHub e autorizar
-   - Selecionar o repositório `casa-clo`
-   - Build settings: deixar em branco (o `netlify.toml` já trata de tudo)
-   - **Deploy site**
-
-4. **A partir daqui**, sempre que fizer `git push`, o Netlify republica automaticamente.
+O site está no Netlify, ligado a este repositório. Para actualizar produção:
+`git push` (deploy automático) — ou arrastar a pasta para
+[app.netlify.com/drop](https://app.netlify.com/drop) num deploy manual.
 
 ---
 
-## TODOs antes de lançar publicamente
+## Estado dos contactos e canais
 
-A versão actual aplica todas as alterações de **alta prioridade** do diagnóstico, mas há ainda alguns pontos pendentes que dependem de informação real ou conteúdo novo:
+- **Email:** `encomendas@casaclodoces.com` (caixa na Hostinger; requer os
+  registos MX/SPF/DKIM activos na DNS — ver abaixo)
+- **WhatsApp:** +351 966 845 351 (real, usado em todo o site)
+- **Instagram:** `instagram.com/casaclo` — confirmar se é o handle certo
+- **Formulário da homepage:** abre o cliente de email do visitante (mailto).
+  Alternativa futura: Netlify Forms ou Formspree para receber pedidos directamente.
 
-### Conteúdo a substituir (procurar `TODO` no código)
-- [ ] **Email real** — em `index.html` (footer) e em `script.js` (variável `to`)
-- [ ] **Instagram** — `https://instagram.com/casaclo` → handle real
-- [ ] **WhatsApp** — `https://wa.me/351000000000` → número real (formato internacional, sem `+` nem espaços)
+## Domínio
 
-### Páginas legais a criar (links já existem no footer)
-- [ ] `termos.html` — Termos e condições de venda
-- [ ] `privacidade.html` — Política de privacidade (RGPD)
-- [ ] `info-alimentar.html` — Alergénios, conservação, prazos por produto
-- [ ] Livro de reclamações electrónico — link já aponta para [livroreclamacoes.pt](https://www.livroreclamacoes.pt/) (criar conta da Casa Clo lá)
-
-### Funcional
-- [ ] **Preços** — quando definidos, substituir `Sob encomenda` por `desde X€` em `index.html` (secção `.shop`)
-- [ ] **Formulário** — actualmente abre o cliente de email do utilizador. Para receber pedidos directamente, considerar [Netlify Forms](https://docs.netlify.com/forms/setup/) (gratuito, integração nativa) ou [Formspree](https://formspree.io)
-- [ ] **Imagem Open Graph** — actualmente usa `images/img-01.jpg`. Idealmente criar uma imagem específica 1200×630 px
-
-### Média prioridade (para uma 2ª iteração)
-- Páginas dedicadas para *Eventos* e *Peças especiais*
-- SEO: termos como "bolos por encomenda Lisboa", "doces personalizados"
-- Imagens em formato WebP/AVIF (menor peso)
-- Testar em vários dispositivos (iPhone, Android, tablet)
+- `casaclodoces.com` — registado 02/05/2026, **expira 02/05/2027** (Name.com,
+  conta própria; transferido da Netlify a 04/11/2026). **Ligar auto-renew.**
+- `casaclo.pt` — nunca foi registado; não usar em lado nenhum.
+- DNS gerida no Netlify (nsone). Se um dia a zona migrar (p.ex. para a
+  Hostinger), copiar TODOS os registos, incluindo: `A @ e www →
+  63.176.8.218 + 35.157.26.135` (o site continua alojado no Netlify) e os
+  MX/SPF/DKIM do email.
 
 ---
 
-## Dúvidas técnicas
+## TODOs pendentes (conteúdo, não código)
 
-- **As fontes não carregam?** O site usa Google Fonts (CDN externo). Precisa de internet.
-- **Quero mudar uma cor?** Editar as variáveis no topo do `style.css` (`:root { --cream: ...; }`).
-- **Quero mudar o texto do hero?** Está no `index.html`, dentro de `<section class="hero">`.
+- [ ] Confirmar handle do Instagram
+- [ ] `clo.html` — confirmar nome da escola/curso da Clo (TODO no próprio ficheiro)
+- [ ] Páginas legais: preencher `[Nome legal]`, `[NIF]`, `[morada]` e rever
+      com profissional antes de considerá-las finais
+- [ ] Criar conta da Casa Clo no livroreclamacoes.pt (link já no footer)
+- [ ] Imagens em WebP/AVIF numa 2.ª iteração de performance
 
----
-
-*Última actualização: 2026-05-02*
+*Última actualização: 2026-11-04 (revisão completa: fontes auto-hospedadas,
+navegação consistente, email novo, og:image absolutas, lazy-loading, README).*

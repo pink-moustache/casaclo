@@ -10,6 +10,12 @@
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
+# Fontes auto-hospedadas: ficheiros com nome estável — cache longo
+[[headers]]
+  for = "/fonts/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
 # CSS e JS: cache curto + revalidação
 # (pode mudar com frequência, queremos que o browser verifique sempre)
 [[headers]]
