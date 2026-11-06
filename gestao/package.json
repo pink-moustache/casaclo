@@ -1,0 +1,17 @@
+{
+  "name": "casaclo-gestao",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Plataforma de gestão da Casa Clo — encomendas, clientes, pagamentos (backend Node + PostgreSQL, SPA estática)",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "start": "node server/index.mjs",
+    "db:migrate": "node db/migrate.mjs",
+    "db:migrate:dry": "node db/migrate.mjs --dry-run",
+    "seed": "node db/seed.mjs"
+  },
+  "dependencies": {
+    "pg": "8.16.0"
+  }
+}

@@ -25,6 +25,7 @@ casaclo/
 ├── script.js         ← menu mobile + envio do formulário (mailto) + ano
 ├── fonts/            ← 13 ficheiros .woff2 (Cormorant, Fraunces, Inter Tight, Italiana)
 ├── images/           ← 41 imagens dos doces
+├── gestao/           ← plataforma de gestão (Node+PostgreSQL, Decima Cloud) — ver gestao/README.md
 ├── favicon.ico
 ├── robots.txt
 ├── netlify.toml      ← cache (imagens/fontes longas; HTML/CSS curto) + segurança

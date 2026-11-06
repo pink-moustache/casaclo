@@ -34,6 +34,13 @@
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
 
+# A plataforma de gestão (/gestao) vive na DECIMA CLOUD (serviço próprio
+# Node+PostgreSQL) — nada dela é servido daqui; links antigos caem no site.
+[[redirects]]
+  from = "/gestao/*"
+  to = "/"
+  status = 302
+
 # Cabeçalhos de segurança básicos
 [[headers]]
   for = "/*"
