@@ -2,8 +2,10 @@
 
 Contrato entre o produto (este repo) e a infra (operador único). Molde:
 DECIMA DESK / centro-de-comando-operacao. Estado: **produto pronto e
-testado localmente** (RLS 25/25; API 28/28; revisão independente) — aguarda
-GO da dona + execução da infra.
+testado localmente** (RLS 25/25; API 28/28; revisão independente a correr)
+— decisões da dona FECHADAS 06/11 (hostname `casaclo.oooooo.systems`,
+conta única `ines@oooooo.systems`); falta só o push do código e a
+execução da infra (pedido na PONTE 06/11 16h4x + adenda).
 
 ## O que é
 
@@ -38,16 +40,17 @@ decisão da dona 06/11) que serve a própria SPA estática. Repo:
 
 ## §3 Seed (uma vez)
 
-- Criar as donas com passwords geradas pela infra (formato
-  `email=senha;email=senha`), com cápsulas para as donas (§8):
+- **DECIDIDO pela dona (06/11)**: uma conta dona — **`ines@oooooo.systems`**.
+  Password gerada pela infra, cápsula para a dona (§8):
   ```bash
   DATABASE_URL='<owner>' ALLOW_SEED_TARGET=1 \
-  CASACLO_INITIAL_PASSWORDS='ines@…=…' npm run seed
+  CASACLO_INITIAL_PASSWORDS='ines@oooooo.systems=<senha>' npm run seed
   ```
   Insert-only e idempotente; guarda de alvo não-local (recusa sem
   `ALLOW_SEED_TARGET=1`); hashes bcrypt nascem dentro da BD.
-- **Pendente da dona**: emails e nº de contas (proposta: só a Inês,
-  admin). O seed com lista vazia falha fechado — sem membros ninguém entra.
+  O seed com lista vazia falha fechado — sem membros ninguém entra.
+  Contas adicionais no futuro: nova linha no seed (insert-only, nunca
+  edita membros existentes) ou criação directa na BD pela infra.
 
 ## §4 service_env_refs
 
@@ -67,10 +70,9 @@ Aliases `DESTINO=FONTE` no molde da casa para blindar o namespace partilhado.
 
 ## §6 Ingress + DNS
 
-- Hostname **pendente da dona** — proposta do produto:
-  **`gestao.casaclodoces.com`** (CNAME proxied na zona casaclodoces
-  **sem tocar nos MX/SPF/DKIM do email** — a zona fica onde está, molde
-  gabriel-guardian). Alternativa sem mexer na zona: `casaclo.oooooo.systems`.
+- **DECIDIDO pela dona (06/11)**: hostname **`casaclo.oooooo.systems`**
+  (CNAME proxied `casaclo` na zona `oooooo.systems` — zero contacto com a
+  zona casaclodoces/MX do email; molde gestão.oooooo.systems do CCOP).
 - Regra de ingress antes do catch-all + rollback arquivado (molde casa).
 
 ## §7 Verificação de aceite (produto)
