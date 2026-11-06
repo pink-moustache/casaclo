@@ -1,18 +1,20 @@
 # Casa Clo · Gestão — imagem do serviço (Decima Cloud)
-# Sem build step: a SPA é estática (public/) e o servidor é Node puro.
+# Sem build step: a SPA é estática (gestao/public/) e o servidor é Node puro.
+# Contexto de build = RAIZ do repo (o executor da Decima Cloud manda o repo
+# inteiro; lição portaria) — todos os COPY partem de gestao/.
 FROM node:22-alpine
 
 WORKDIR /app
 ENV NODE_ENV=production
 
 # dependências (apenas pg, pelo lockfile)
-COPY package.json package-lock.json ./
+COPY gestao/package.json gestao/package-lock.json ./
 RUN npm ci --omit=dev --no-audit --no-fund && npm cache clean --force
 
 # código (server + db + SPA estática)
-COPY server ./server
-COPY db ./db
-COPY public ./public
+COPY gestao/server ./server
+COPY gestao/db ./db
+COPY gestao/public ./public
 
 # não-root
 RUN addgroup -S app && adduser -S app -G app && chown -R app:app /app
