@@ -29,7 +29,7 @@ export async function withUser(memberId, fn) {
 /** login: verificação do bcrypt DENTRO da BD (hash nunca sai) */
 export async function verifyLogin(email, password) {
   const { rows } = await pool.query(
-    "select id, email, display_name, role from private.verify_login($1, $2)",
+    "select * from private.verify_login($1, $2)",
     [email, password],
   );
   return rows[0] || null;

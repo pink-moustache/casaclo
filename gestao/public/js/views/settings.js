@@ -56,9 +56,9 @@ export async function renderSettings(el) {
       <h3>Utilizadores</h3>
       <div class="panel-body">
         <p class="section-note" style="margin:0 0 10px">
-          As contas criam-se no dashboard do Supabase (Authentication → Add user) — o signup público
-          está desactivado. Contas novas nascem <strong>inactivas</strong>: activam-se aqui (ou na BD)
-          antes de terem acesso. Desactivar corta o acesso de imediato, mesmo em sessões abertas.
+          As contas criam-se pela infra (script de seed, contrato
+          <code>docs/DEPLOY-DECIMA-CLOUD.md</code> §3) — não existe signup.
+          Desactivar aqui corta o acesso de imediato, mesmo em sessões abertas.
         </p>
       </div>
       <table>
@@ -93,7 +93,7 @@ export async function renderSettings(el) {
 
   /* perfis: papel / activo */
   el.querySelectorAll(".pf-role").forEach((s) => s.addEventListener("change", async () => {
-    if (s.value !== "owner" && !confirm("Se esta for a tua própria conta, perdes o acesso de imediato (só volta via Supabase). Continuar?")) {
+    if (s.value !== "owner" && !confirm("Se esta for a tua própria conta, perdes o acesso de imediato (só volta pela infra, na BD). Continuar?")) {
       renderSettings(el); return;
     }
     const { error } = await db.updateProfile(s.dataset.id, { role: s.value });
@@ -101,7 +101,7 @@ export async function renderSettings(el) {
     toast("Papel actualizado.", "ok");
   }));
   el.querySelectorAll(".pf-active").forEach((c) => c.addEventListener("change", async () => {
-    if (!c.checked && !confirm("Desactivar este utilizador? Se for a tua própria conta, perdes o acesso de imediato (só volta via Supabase).")) {
+    if (!c.checked && !confirm("Desactivar este utilizador? Se for a tua própria conta, perdes o acesso de imediato (só volta pela infra, na BD).")) {
       renderSettings(el); return;
     }
     const { error } = await db.updateProfile(c.dataset.id, { active: c.checked });

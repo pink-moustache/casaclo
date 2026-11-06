@@ -49,7 +49,11 @@ export function tsPt(ts) {
   return `${p(dt.getDate())}/${p(dt.getMonth() + 1)}/${dt.getFullYear()} ${p(dt.getHours())}:${p(dt.getMinutes())}`;
 }
 
-export function todayISO() { return new Date().toISOString().slice(0, 10); }
+export function todayISO() { // data LOCAL (UTC daria o dia seguinte após as 23h de verão)
+  const d = new Date();
+  const p = (n) => String(n).padStart(2, "0");
+  return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}`;
+}
 
 export function addDaysISO(iso, days) {
   const d = new Date(iso + "T12:00:00");
@@ -93,7 +97,7 @@ export function toast(msg, kind = "") {
   setTimeout(() => el.remove(), kind === "err" ? 6000 : 3500);
 }
 
-/** mensagem de erro legível a partir de uma resposta de erro do PostgREST/gotrue */
+/** mensagem de erro legível a partir de uma resposta de erro da API */
 export function errMessage(err) {
   if (!err) return "Erro desconhecido.";
   if (err.message === "Failed to fetch") return "Sem ligação ao servidor. Verifica a internet.";

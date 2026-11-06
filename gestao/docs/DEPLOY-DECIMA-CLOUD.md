@@ -97,13 +97,28 @@ Migrar o **site público** (`casaclodoces.com`, estático puro na raiz do
 repo) para a cloud como projecto static (molde malveira-guincho), mantendo
 a zona DNS do email intocada; flip só com checkpoint da dona.
 
+## §9 Backups (obrigatório antes do GO)
+
+- `backup-offsite.sh` **+1 passo** `casaclo-$TS.dump` (dump do `dc-casaclo-db`;
+  molde desk/ccop: hash-idêntico no off-site, retenção como a frota).
+- Antes de considerar PRODUCTION_VERIFIED: execução manual de prova com
+  dump legível **+ restauro ensaiado** (molde casa; criar a role
+  `casaclo_app` antes do `pg_restore` para exit 0 limpo).
+
 ## Notas de segurança do produto (para o advisor da infra)
 
 - RLS em todas as tabelas; role `casaclo_app` com grants mínimos;
   `password_hash` ilegível à role; `order_events` imutável; login verifica
-  bcrypt dentro da BD (`private.verify_login`); rate-limit leve (10
-  falhas/15 min por email); cookies HttpOnly+SameSite=Lax+Secure; CSP sem
-  `unsafe-inline` para scripts; estáticos com path-traversal bloqueado.
+  bcrypt dentro da BD (`private.verify_login`, custo constante —
+  anti-enumeração); rate-limit leve (10 falhas/15 min por email); cookies
+  HttpOnly+SameSite=Lax+Secure; CSP sem `unsafe-inline` para scripts;
+  estáticos com path-traversal bloqueado.
+- **Rotação de password / revogação de sessões**: cada membro tem
+  `session_epoch` (int); emitir sessão nova inclui o epoch no JWT e cada
+  pedido compara com a BD. Rodar password = `update members set
+  password_hash = crypt('nova', gen_salt('bf',12)), session_epoch =
+  session_epoch + 1 where email='…'` → mata todas as sessões activas na
+  hora (fazer pela infra, via owner).
 - Funções `security definer` (`private.is_owner`, `private.verify_login`)
   com `search_path=''`, execução revogada a PUBLIC e concedida só à role
   da app; schema `private` com default privileges revogadas.

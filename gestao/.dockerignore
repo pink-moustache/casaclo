@@ -1,5 +1,6 @@
 node_modules
 supabase
 docs
+db/tests
 *.md
 .env*

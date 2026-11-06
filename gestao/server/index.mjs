@@ -61,7 +61,11 @@ async function readBody(req, limit = 64 * 1024) {
     chunks.push(c);
   }
   if (!chunks.length) return {};
-  return JSON.parse(Buffer.concat(chunks).toString("utf8"));
+  try {
+    return JSON.parse(Buffer.concat(chunks).toString("utf8"));
+  } catch {
+    throw Object.assign(new Error("Corpo JSON inválido."), { status: 400 });
+  }
 }
 
 function session(req) {
@@ -74,20 +78,27 @@ function session(req) {
 async function requireOwner(req, res) {
   const s = session(req);
   if (!s) { json(res, 401, { error: "Sem sessão." }); return null; }
-  let me = null;
+  let me = null; let dbOk = true;
   try {
     me = await withUser(s.sub, async (c) => {
       const { rows } = await c.query(
-        "select id, email, display_name, role from members where id = $1", [s.sub]);
+        "select id, email, display_name, role, session_epoch from members where id = $1", [s.sub]);
       return rows[0] || null;
     });
-  } catch { /* BD fora — deixa passar como 503 do handler */ }
+  } catch { dbOk = false; }
+  if (!dbOk) { json(res, 503, { error: "Sem ligação à base de dados." }); return null; }
   if (!me || me.role !== "owner") { json(res, 401, { error: "Sessão sem acesso." }); return null; }
+  // rotação de password (session_epoch+) mata sessões antigas
+  if (typeof s.ep === "number" && me.session_epoch !== s.ep) {
+    json(res, 401, { error: "Sessão inválida — entra de novo." });
+    return null;
+  }
   return me;
 }
 
 // rate-limit leve ao login (memória do processo, chega para 2-3 donas)
 const loginFails = new Map(); // email → { count, until }
+const LOGIN_FAIL_CAP = 1000;
 function loginThrottled(email) {
   const e = loginFails.get(email);
   if (!e) return false;
@@ -95,6 +106,7 @@ function loginThrottled(email) {
   return e.count >= 10;
 }
 function noteLoginFail(email) {
+  if (loginFails.size >= LOGIN_FAIL_CAP) loginFails.clear(); // cap anti-oom
   const e = loginFails.get(email) || { count: 0, until: Date.now() + 15 * 60_000 };
   e.count += 1;
   e.until = Date.now() + 15 * 60_000;
@@ -153,13 +165,37 @@ const ORDER_FIELDS = [
   "customer_id", "status", "channel", "delivery_date", "delivery_time",
   "fulfilment", "address", "items", "total_cents", "allergies", "notes",
 ];
+const VALID_STATUS = new Set(["recebida", "confirmada", "em_producao", "pronta", "entregue", "cancelada"]);
+const VALID_CHANNEL = new Set(["whatsapp", "email", "telefone", "loja", "site", "outro"]);
+const VALID_FULFILMENT = new Set(["recolha", "entrega"]);
 
 function orderPayload(body) {
   const out = {};
   for (const f of ORDER_FIELDS) if (f in body) out[f] = body[f];
-  if ("items" in out && !Array.isArray(out.items)) throw new Error("items tem de ser array");
+  if ("status" in out && !VALID_STATUS.has(out.status)) throw bad("Estado inválido.");
+  if ("channel" in out && !VALID_CHANNEL.has(out.channel)) throw bad("Canal inválido.");
+  if ("fulfilment" in out && !VALID_FULFILMENT.has(out.fulfilment)) throw bad("Modo inválido.");
+  if ("total_cents" in out && !(Number.isInteger(out.total_cents) && out.total_cents >= 0)) {
+    throw bad("total_cents tem de ser inteiro ≥ 0.");
+  }
+  if ("customer_id" in out && !/^[0-9a-f-]{36}$/.test(String(out.customer_id))) {
+    throw bad("customer_id inválido.");
+  }
+  if ("items" in out) {
+    if (!Array.isArray(out.items)) throw bad("items tem de ser array.");
+    out.items = out.items.map((it) => {
+      const desc = String(it?.desc ?? "").trim();
+      const qty = Number(it?.qty);
+      const unit = Number(it?.unit_cents);
+      if (!desc || !Number.isFinite(qty) || qty <= 0 || !Number.isInteger(unit) || unit <= 0) {
+        throw bad("Artigo inválido (desc, qty > 0 e unit_cents inteiro > 0).");
+      }
+      return { desc: desc.slice(0, 200), qty, unit_cents: unit };
+    });
+  }
   return out;
 }
+function bad(message) { return Object.assign(new Error(message), { status: 400 }); }
 
 /* ---------------- API: handlers ---------------- */
 
@@ -191,7 +227,7 @@ async function handleApi(req, res, url) {
       return json(res, 403, { error: "Esta conta não tem acesso de gestão." });
     }
     loginFails.delete(email);
-    const token = signJwt({ sub: member.id, role: member.role }, SECRET, TTL);
+    const token = signJwt({ sub: member.id, role: member.role, ep: member.session_epoch }, SECRET, TTL);
     return json(res, 200, {
       user: { id: member.id, email: member.email, display_name: member.display_name, role: member.role },
     }, { "Set-Cookie": sessionCookie(token, { secure: COOKIE_SECURE, maxAgeSeconds: TTL }) });
@@ -475,6 +511,12 @@ async function handleApi(req, res, url) {
     const b = await readBody(req);
     const keys = ["display_name", "role", "active"].filter((k) => k in b);
     if (!keys.length) return json(res, 400, { error: "Nada para actualizar." });
+    if ("role" in b && !["owner", "production"].includes(b.role)) {
+      return json(res, 400, { error: "Papel inválido (owner ou production)." });
+    }
+    if ("active" in b && typeof b.active !== "boolean") {
+      return json(res, 400, { error: "active tem de ser booleano." });
+    }
     if (m[1] === me.id && ((b.active === false) || (b.role && b.role !== "owner"))) {
       return json(res, 400, { error: "Não podes retirar o acesso à tua própria conta aqui (faz-se por outra conta)." });
     }
@@ -537,7 +579,7 @@ const server = createServer(async (req, res) => {
     }
   } catch (e) {
     console.error(`${req.method} ${url.pathname}:`, e.message);
-    if (!res.headersSent) json(res, 500, { error: "Erro interno." });
+    if (!res.headersSent) json(res, e.status || 500, { error: e.status === 400 ? e.message : "Erro interno." });
     else res.end();
   }
 });
