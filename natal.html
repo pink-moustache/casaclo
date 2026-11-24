@@ -170,23 +170,20 @@
       </section>
 
       <!-- ============================================================
-           FORMULÁRIO DE PRÉ-VENDA (Netlify Forms: "encomenda-natal")
+           FORMULÁRIO DE PRÉ-VENDA: monta a mensagem e abre o WhatsApp (natal.js)
            ============================================================ -->
       <section class="section newsletter" id="encomendar">
         <div>
           <div class="eyebrow">Pré-venda de Natal</div>
           <h2>Reserve o seu Natal.</h2>
-          <p>Escolha os doces e o dia. A Clo responde em 24-48h com a confirmação, o total e os dados para o sinal.</p>
+          <p>Escolha os doces e o dia. Ao carregar em "Reservar por WhatsApp", a mensagem abre já escrita: é só enviar. A Clo responde em 24-48h com a confirmação, o total e os dados para o sinal.</p>
           <p class="natal-aviso" style="margin-top: 24px;"><strong>Pagamento:</strong> sinal de <span class="ph">50%</span> por MB WAY (<span class="ph">9xx xxx xxx</span>) ou transferência bancária, para garantir a reserva. O restante paga-se no levantamento ou na entrega.</p>
         </div>
 
         <div>
           <p class="natal-fechado-msg natal-aviso"><strong>As reservas de Natal estão fechadas.</strong> Obrigada! Para algo à última hora, escreva-nos pelo <a href="https://wa.me/351966845351" style="text-decoration: underline;">WhatsApp</a>.</p>
 
-          <form class="form natal-aberto" id="natalForm" name="encomenda-natal" method="POST" data-netlify="true" netlify-honeypot="bot-field">
-            <input type="hidden" name="form-name" value="encomenda-natal">
-            <input type="hidden" name="resumo" value="">
-            <p hidden><label>Não preencher: <input name="bot-field"></label></p>
+          <form class="form natal-aberto" id="natalForm">
 
             <div>
               <label>Os seus doces de Natal</label>
@@ -224,15 +221,9 @@
               </div>
             </div>
 
-            <div class="form-row">
-              <div>
-                <label for="n-nome">Nome</label>
-                <input id="n-nome" name="nome" type="text" placeholder="O seu nome" required autocomplete="name">
-              </div>
-              <div>
-                <label for="n-telefone">Telemóvel</label>
-                <input id="n-telefone" name="telefone" type="tel" placeholder="Para o MB WAY e contacto" required autocomplete="tel">
-              </div>
+            <div>
+              <label for="n-nome">Nome</label>
+              <input id="n-nome" name="nome" type="text" placeholder="O seu nome" required autocomplete="name">
             </div>
 
             <div class="form-row">
@@ -271,11 +262,11 @@
             <div>
               <label>Alergias ou restrições alimentares</label>
               <div class="checkbox-group" role="group" aria-label="Alergénios a evitar">
-                <label><input type="checkbox" name="alergias" value="frutos-secos"> Frutos secos</label>
-                <label><input type="checkbox" name="alergias" value="gluten"> Glúten</label>
+                <label><input type="checkbox" name="alergias" value="frutos secos"> Frutos secos</label>
+                <label><input type="checkbox" name="alergias" value="glúten"> Glúten</label>
                 <label><input type="checkbox" name="alergias" value="lactose"> Lactose</label>
                 <label><input type="checkbox" name="alergias" value="ovo"> Ovo</label>
-                <label><input type="checkbox" name="alergias" value="outras"> Outras (indicar abaixo)</label>
+                <label><input type="checkbox" name="alergias" value="outras (ver notas)"> Outras (indicar abaixo)</label>
               </div>
             </div>
 
@@ -284,14 +275,9 @@
               <textarea id="n-mensagem" name="mensagem" placeholder="Mensagem para o cartão da caixa, hora preferida, outros pedidos…"></textarea>
             </div>
 
-            <div>
-              <label class="checkbox-group" style="margin-top: 0;">
-                <input type="checkbox" name="rgpd" value="sim" required>
-                <span>Aceito que os meus dados sejam usados para responder a esta reserva. <a href="privacidade.html" style="text-decoration: underline;">Política de privacidade</a></span>
-              </label>
-            </div>
+            <p class="form-note">Os dados seguem só na sua mensagem de WhatsApp e servem para responder à reserva. <a href="privacidade.html" style="text-decoration: underline;">Política de privacidade</a></p>
 
-            <button type="submit" class="button primary">Enviar reserva</button>
+            <button type="submit" class="button primary">Reservar por WhatsApp</button>
             <p class="form-note" id="natalStatus" hidden></p>
           </form>
         </div>

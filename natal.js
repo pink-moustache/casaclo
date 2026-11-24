@@ -75,5 +75,75 @@
         sel.appendChild(o);
       });
     });
+    ligarReserva();
   });
+
+  /* ---------- Reserva de Natal por WhatsApp (natal.html) ----------
+     O formulário não envia nada para servidor: monta a mensagem e abre
+     o WhatsApp da Casa Clo com a reserva já escrita. */
+  var WHATSAPP = '351966845351';
+  var EMAIL = 'encomendas@casaclodoces.com';
+
+  function ligarReserva() {
+    var form = document.getElementById('natalForm');
+    if (!form) return;
+    var status = document.getElementById('natalStatus');
+
+    function aviso(html) {
+      if (!status) return;
+      status.hidden = false;
+      status.innerHTML = html;
+    }
+
+    // "Reservar" num cartão: põe 1 unidade desse doce e desce ao formulário
+    document.querySelectorAll('[data-natal-produto]').forEach(function (a) {
+      a.addEventListener('click', function () {
+        var input = document.getElementById(a.getAttribute('data-natal-produto'));
+        if (input && Number(input.value) < 1) input.value = 1;
+      });
+    });
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      var doces = [];
+      form.querySelectorAll('.natal-qtd .linha').forEach(function (l) {
+        var n = Number(l.querySelector('input').value) || 0;
+        if (n > 0) doces.push('• ' + n + ' × ' + l.querySelector('label').textContent.trim());
+      });
+      if (!doces.length) {
+        aviso('Escolha pelo menos um doce (quantidade maior que 0).');
+        var primeiro = form.querySelector('.natal-qtd input');
+        if (primeiro) primeiro.focus();
+        return;
+      }
+
+      var d = new FormData(form);
+      var alergias = d.getAll('alergias').join(', ');
+      var linhas = [
+        'Olá Clo! Queria fazer uma reserva de Natal:',
+        '',
+        doces.join('\n'),
+        '',
+        'Nome: ' + d.get('nome'),
+        'Dia: ' + d.get('dia'),
+        d.get('entrega') + (d.get('zona') ? ' (' + d.get('zona') + ')' : ''),
+        'Sinal por: ' + d.get('pagamento')
+      ];
+      if (alergias) linhas.push('Alergias: ' + alergias);
+      if (d.get('mensagem')) linhas.push('', 'Notas: ' + d.get('mensagem'));
+      var texto = linhas.join('\n');
+
+      var wa = 'https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent(texto);
+      var mail = 'mailto:' + EMAIL + '?subject=' + encodeURIComponent('Reserva de Natal — ' + d.get('nome'))
+        + '&body=' + encodeURIComponent(texto);
+
+      aviso('A abrir o WhatsApp com a sua reserva já escrita: só falta carregar em Enviar. '
+        + 'Se não abrir, <a href="' + wa + '" target="_blank" rel="noopener" style="text-decoration: underline;">toque aqui</a> '
+        + 'ou envie por <a href="' + mail + '" style="text-decoration: underline;">e-mail</a>.');
+      // (window.open com 'noopener' devolve sempre null, por isso corta-se à mão)
+      var w = window.open(wa, '_blank');
+      if (w) w.opener = null; else window.location.href = wa;
+    });
+  }
 })();
