@@ -1937,3 +1937,48 @@ html.natal .natal-palco .hero-actions .button.primary { background: var(--ouro);
 @media (prefers-reduced-motion: reduce) { .natal-palco::after { animation: none; } }
 .natal-palco .natal-floresta { margin-top: -90px; }
 @media (max-width: 860px) { .natal-palco .natal-floresta { margin-top: -30px; } }
+
+/* ---------- Especial 2026: Torre de Casinhas de Gengibre ---------- */
+.natal-especial {
+  display: grid; grid-template-columns: 0.95fr 1.05fr; gap: 56px; align-items: center;
+  margin-bottom: 110px;
+}
+.natal-especial-img { position: relative; }
+.natal-especial-img img {
+  width: 100%; height: auto; border-radius: 24px; background: #F7EFE6;
+  box-shadow: 0 30px 80px rgba(14, 32, 48, 0.18), 0 0 0 1px rgba(212, 175, 106, 0.6);
+}
+.natal-especial-img .natal-selo { left: auto; right: -18px; top: 26px; bottom: auto; transform: rotate(8deg); width: 124px; height: 124px; }
+.natal-especial h2 { font-size: clamp(34px, 4vw, 54px); }
+.natal-especial h2 .accent {
+  background: linear-gradient(180deg, #C79A4E, #9C7A3C); -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.natal-especial .eyebrow { color: #9C7A3C; }
+.natal-especial-lista { list-style: none; padding: 0; margin: 28px 0 0; display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid rgba(212, 175, 106, 0.5); border-bottom: 1px solid rgba(212, 175, 106, 0.5); }
+.natal-especial-lista li { padding: 14px 0; }
+.natal-especial-lista span { display: block; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--cocoa); }
+.natal-especial-lista strong { font-family: var(--serif); font-weight: 400; font-size: 19px; }
+.natal-especial-nota { color: var(--cocoa); font-size: 14px; margin: 18px 0 0; }
+html.natal .natal-especial .hero-actions .button.primary { background: var(--noite); border-color: var(--noite); color: var(--ouro-claro); }
+.natal-qtd-destaque { border-color: rgba(212, 175, 106, 0.7) !important; background: #FBF3E2 !important; }
+.natal-qtd-destaque small { display: block; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: #9C7A3C; }
+@media (max-width: 860px) {
+  .natal-especial { grid-template-columns: 1fr; gap: 32px; }
+  .natal-especial-img .natal-selo { right: 10px; width: 100px; height: 100px; }
+}
+
+/* Destaque na loja */
+.loja-especial {
+  display: grid; grid-template-columns: 280px 1fr; gap: 32px; align-items: center;
+  margin: 0 0 28px; padding: 18px; border-radius: 24px;
+  background: var(--noite); color: #F6EFE2; box-shadow: var(--shadow);
+}
+.loja-especial img { width: 100%; height: 300px; object-fit: cover; border-radius: 16px; }
+.loja-especial .eyebrow { color: var(--ouro); margin-bottom: 12px; }
+.loja-especial h3 { color: #F6EFE2; font-size: clamp(26px, 3vw, 36px); }
+.loja-especial p { color: rgba(246, 239, 226, 0.8); max-width: 520px; }
+.loja-especial-cta { color: var(--ouro-claro); font-family: var(--serif); font-size: 18px; }
+.loja-especial .ph { background: rgba(212, 175, 106, 0.3); }
+@media (max-width: 700px) { .loja-especial { grid-template-columns: 1fr; } .loja-especial img { height: 320px; } }
+html.natal .loja-especial.so-natal { display: grid !important; }
+html.natal .natal-banner .hero-actions .button.primary { background: var(--ouro); border-color: var(--ouro); color: var(--noite-funda); }
