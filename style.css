@@ -1617,3 +1617,94 @@ html.natal .natal-banner.so-natal { display: grid !important; }
 @media print {
   .whatsapp-fab { display: none; }
 }
+
+/* ============================================================
+   Revisão de design 11/2026 — ajustes transversais a todas as páginas
+   ============================================================ */
+
+/* Imagens: a altura vem da largura (os atributos width/height só servem
+   para reservar espaço). Sem isto, imagens com aspect-ratio ficavam com
+   1600px de altura (galeria de Eventos). */
+img { height: auto; }
+
+/* Fotos ao lado do texto: altura limitada, para não ocuparem um ecrã e meio */
+.split .image-frame,
+.split .image-frame img { max-height: 640px; }
+.split .image-frame.small,
+.split .image-frame.small img { max-height: 560px; }
+
+/* Painéis de fundo claro (Eventos, Peças especiais, A Clo): respiro em cima
+   e em baixo, cantos iguais aos cartões, e distância da secção seguinte */
+.panel {
+  background: var(--paper);
+  border-radius: 24px;
+  padding: clamp(40px, 5vw, 64px) 0;
+  margin-bottom: 96px;
+}
+.panel .section-heading { margin-bottom: 28px; }
+
+/* Grelhas com 5 cartões: uma linha só, sem cartão órfão */
+@media (min-width: 761px) {
+  .steps:has(> :nth-child(5):last-child) { grid-template-columns: repeat(5, 1fr); }
+}
+
+/* Página inicial: caminhos "Para casa" / "Para celebrar" com foto nítida
+   e texto legível (antes a foto ficava esbatida por um véu branco) */
+.path-card img { opacity: 1; }
+.path-card:hover img { opacity: 1; }
+.path-card:after {
+  background: linear-gradient(180deg, rgba(42, 24, 19, 0) 35%, rgba(42, 24, 19, 0.72) 100%);
+}
+
+/* Página inicial: galeria sem buraco no fim e legendas discretas */
+.gallery-grid figure:first-child { grid-row: span 3; }
+.gallery-grid figure:nth-child(5) { grid-column: span 2; }
+.gallery-grid figcaption {
+  right: auto;
+  padding: 6px 14px;
+}
+
+/* Página inicial: texto de abertura mais legível */
+.hero h1 em {
+  font-size: 0.34em;
+  font-weight: 400;
+}
+.hero-lead {
+  font-family: var(--sans);
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.65;
+  max-width: 420px;
+}
+
+/* Cartão final só com texto (Eventos, Peças especiais): centrado, sem metade vazia */
+.newsletter > :only-child {
+  grid-column: 1 / -1;
+  max-width: 620px;
+  margin: 0 auto;
+  text-align: center;
+}
+.newsletter > :only-child > div[style*="flex"] { justify-content: center; }
+
+@media (max-width: 760px) {
+  .split .image-frame,
+  .split .image-frame img { min-height: 0; max-height: 460px; aspect-ratio: 4 / 5; }
+  .panel { padding: 36px 0; margin-bottom: 64px; border-radius: 18px; }
+  .gallery-grid figure:first-child { grid-row: auto; }
+  .gallery-grid figure:nth-child(5) { grid-column: 1 / -1; }
+}
+
+@media (max-width: 640px) {
+  /* Margens laterais iguais às do cabeçalho */
+  .hero { width: min(100% - 32px, 1240px); }
+  .hero h1 { font-size: clamp(44px, 12vw, 56px); }
+  .hero h1 em { font-size: 0.42em; margin-top: 0.8em; }
+  .hero-lead { font-size: 15px; }
+  .hero-eyebrow-row { margin-bottom: 22px; }
+  .path-card { min-height: 320px; }
+  .gallery-grid { grid-auto-rows: 160px; gap: 10px; }
+  .gallery-grid figcaption { left: 10px; bottom: 10px; font-size: 10px; }
+  .steps { gap: 10px; }
+  .step { padding: 20px 20px 22px; }
+}

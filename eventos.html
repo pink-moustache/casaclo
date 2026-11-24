@@ -19,7 +19,7 @@
     /* Estilos específicos para esta página (cards de tipos, processo numerado em coluna) */
     .types-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
       gap: 18px;
       margin-top: 28px;
     }
@@ -72,7 +72,10 @@
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 12px;
-      margin-top: 24px;
+      margin: 24px 0 96px;
+    }
+    @media (max-width: 640px) {
+      .galeria-mini { grid-template-columns: 1fr 1fr; gap: 10px; }
     }
     .galeria-mini img {
       width: 100%;
@@ -132,7 +135,7 @@
       </section>
 
       <!-- TIPOS DE EVENTO -->
-      <section class="section" style="background: var(--paper);">
+      <section class="section panel">
         <div style="width: min(1100px, calc(100% - 36px)); margin: 0 auto;">
           <div class="section-heading">
             <div>
@@ -172,7 +175,7 @@
       <!-- O QUE INCLUI -->
       <section class="section split reverse">
         <div class="image-frame small">
-          <img width="900" height="1600" loading="lazy" src="images/img-11.webp" alt="Doces de evento com monograma">
+          <img width="900" height="1600" loading="lazy" src="images/img-12.webp" alt="Mesa doce com saquinhos cor-de-rosa em suporte de prata">
         </div>
         <div class="text-block">
           <div class="eyebrow">O que inclui uma mesa da Clo</div>
@@ -283,10 +286,10 @@
             </div>
           </div>
           <div class="galeria-mini">
-            <img width="900" height="1600" loading="lazy" src="images/img-03.webp" alt="Doces personalizados com monograma">
+            <img width="900" height="1600" loading="lazy" src="images/img-02.webp" alt="Doces embalados em travessa de prata">
             <img width="900" height="1600" loading="lazy" src="images/img-08.webp" alt="Doces com monograma em prata">
-            <img width="900" height="1600" loading="lazy" src="images/img-16.webp" alt="Detalhe de doces com monograma">
-            <img width="900" height="1600" loading="lazy" src="images/img-06.webp" alt="Doces com flores cor-de-rosa">
+            <img width="900" height="1600" loading="lazy" src="images/img-07.webp" alt="Bombons de chocolate em taça de vidro">
+            <img width="900" height="1600" loading="lazy" src="images/img-04.webp" alt="Doces delicados em taça prateada entre flores">
           </div>
         </div>
       </section>
