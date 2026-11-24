@@ -28,9 +28,40 @@ casaclo/
 ├── gestao/           ← plataforma de gestão (Node+PostgreSQL, Decima Cloud) — ver gestao/README.md
 ├── favicon.ico
 ├── robots.txt
+├── catalogo-whatsapp.csv ← feed de produtos para o catálogo WhatsApp (gerado)
+├── scripts/gerar-catalogo.mjs ← gera o CSV a partir de loja.html e natal.html
 ├── netlify.toml      ← cache (imagens/fontes longas; HTML/CSS curto) + segurança
 └── README.md         ← este ficheiro
 ```
+
+---
+
+## Catálogo do WhatsApp (feed de produtos)
+
+`catalogo-whatsapp.csv` é a lista de produtos que o catálogo do WhatsApp
+Business da Clo lê, através do Meta Commerce Manager. É gerada a partir dos
+cartões de produto de `loja.html` e `natal.html`:
+
+```bash
+node scripts/gerar-catalogo.mjs
+```
+
+Correr sempre que mudar produtos, preços ou fotos, e fazer commit do CSV.
+
+- Produtos sem preço em número ("Preço a definir") ficam de fora até terem
+  preço; o script diz quais são.
+- Os doces de Natal levam `custom_label_0 = natal`, para a coleção "Natal".
+- URL do feed: `https://casaclodoces.com/catalogo-whatsapp.csv`.
+
+Configuração na Meta (uma vez, com a conta da Casa Clo):
+1. business.facebook.com → Commerce Manager → criar catálogo "Outros/E-commerce".
+2. Catálogo → Origens de dados → Feed de dados → "Atualizações agendadas",
+   colar o URL acima, frequência diária, moeda EUR.
+3. Catálogo → Conjuntos/Coleções → nova coleção "Natal" com o filtro
+   `custom_label_0` é `natal`.
+4. Na app WhatsApp Business da Clo: Definições → Ferramentas comerciais →
+   ligar a conta Meta (Accounts Center) e escolher este catálogo.
+   Depois de ligado, o catálogo edita-se no Commerce Manager, não na app.
 
 ---
 
