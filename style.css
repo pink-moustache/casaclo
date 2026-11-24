@@ -1999,3 +1999,24 @@ html.natal .natal-banner .hero-actions .button.primary { background: var(--ouro)
   .natal-produtos .natal-aldeia .product-image { min-height: 0; height: 240px; border-radius: 24px 24px 0 0; }
   .natal-produtos .natal-aldeia .product-body { padding: 24px; }
 }
+
+/* Fotos inteiras: os doces nunca aparecem cortados (pedido da Inês, 24/11).
+   A moldura segue a proporção de cada foto em vez de a recortar. */
+.product-image,
+.natal-produtos .product-image,
+.collection-block .product-image,
+.collection-block .product-card:last-child:nth-child(odd) .product-image,
+.natal-produtos .natal-aldeia .product-image {
+  height: auto !important; min-height: 0 !important; aspect-ratio: auto !important;
+}
+.product-image img,
+.natal-produtos .product-image img,
+.collection-block .product-image img,
+.collection-block .product-card:last-child:nth-child(odd) .product-image img {
+  position: static !important; height: auto !important; object-fit: contain;
+}
+.loja-especial img { height: auto; object-fit: contain; }
+@media (max-width: 700px) { .loja-especial img { height: auto; } }
+.natal-banner .natal-banner-img { min-height: 0 !important; }
+.natal-banner .natal-banner-img img { height: auto !important; object-fit: contain; }
+.natal-hero-img img { height: auto !important; object-fit: contain; }
