@@ -2020,3 +2020,4 @@ html.natal .natal-banner .hero-actions .button.primary { background: var(--ouro)
 .natal-banner .natal-banner-img { min-height: 0 !important; }
 .natal-banner .natal-banner-img img { height: auto !important; object-fit: contain; }
 .natal-hero-img img { height: auto !important; object-fit: contain; }
+.product-image.placeholder { aspect-ratio: 4 / 5 !important; }
