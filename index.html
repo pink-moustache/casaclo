@@ -446,16 +446,13 @@
           <div class="eyebrow">Pedido de encomenda</div>
           <h2>Conta à Clo o que queres levar para a mesa.</h2>
           <p>
-            Preencha os campos abaixo e a Clo responde em 24-48h com disponibilidade, proposta e próximos passos.
+            Preencha os campos abaixo e envie pelo WhatsApp. A Clo responde em 24-48h com disponibilidade, proposta e próximos passos.
           </p>
         </div>
 
-        <!-- Netlify Forms: o Netlify detecta este formulário no deploy e guarda
-             cada pedido (Netlify > Forms > "pedido-encomenda"). Na fase B, quando o
-             site sair do Netlify para a Decima Cloud, isto passa para um endpoint próprio. -->
-        <form class="form" id="orderForm" name="pedido-encomenda" method="POST" data-netlify="true" netlify-honeypot="bot-field">
-          <input type="hidden" name="form-name" value="pedido-encomenda">
-          <p hidden><label>Não preencher: <input name="bot-field"></label></p>
+        <!-- Pedido por WhatsApp: ao enviar, o script.js abre o WhatsApp da Clo
+             com o pedido já escrito (ver data-whatsapp). Nada é guardado no site. -->
+        <form class="form" id="orderForm" data-whatsapp="Pedido de encomenda">
           <!-- Linha 1: contacto -->
           <div class="form-row">
             <div>
@@ -530,7 +527,7 @@
           <!-- Alergias / restrições -->
           <div>
             <label>Alergias ou restrições alimentares</label>
-            <div class="checkbox-group" role="group" aria-label="Alergénios a evitar">
+            <div class="checkbox-group" role="group" aria-label="Alergias">
               <label><input type="checkbox" name="alergias" value="frutos-secos"> Frutos secos</label>
               <label><input type="checkbox" name="alergias" value="gluten"> Glúten</label>
               <label><input type="checkbox" name="alergias" value="lactose"> Lactose</label>
@@ -550,11 +547,11 @@
           <div>
             <label class="checkbox-group" style="margin-top: 0;">
               <input type="checkbox" name="rgpd" value="sim" required>
-              <span>Aceito que os meus dados sejam usados para responder a este pedido. <a href="privacidade.html" style="text-decoration: underline;">Política de privacidade</a></span>
+              <span>Aceito que os meus dados sejam usados para responder a este pedido, enviado pelo WhatsApp. <a href="privacidade.html" style="text-decoration: underline;">Política de privacidade</a></span>
             </label>
           </div>
 
-          <button type="submit" class="button primary">Enviar pedido</button>
+          <button type="submit" class="button primary">Enviar pelo WhatsApp</button>
 
           <p class="form-note" id="formStatus" hidden></p>
         </form>
