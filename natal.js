@@ -18,10 +18,11 @@
   var NATAL = {
     modo: 'auto',
     inicio: '2026-11-25',
-    fimEncomendas: '2026-12-20', // PLACEHOLDER: confirmar com a Clo
+    fimEncomendas: '2026-12-20', // confirmado 24/11
     fim: '2026-12-26',
-    // Dias de levantamento/entrega oferecidos no formulário (PLACEHOLDER)
-    levantamento: ['2026-12-22', '2026-12-23', '2026-12-24']
+    // Dias de entrega no formulário (confirmado 24/11).
+    // Texto depois da data aparece a seguir ao dia, ex.: "(até às 16h)".
+    levantamento: ['2026-12-22', '2026-12-23', '2026-12-24 (até às 16h)']
   };
 
   window.CASACLO_NATAL = NATAL;
@@ -68,10 +69,11 @@
     });
     document.querySelectorAll('select[data-natal-dias]').forEach(function (sel) {
       sel.innerHTML = '';
-      NATAL.levantamento.forEach(function (iso) {
+      NATAL.levantamento.forEach(function (dia) {
         var o = document.createElement('option');
-        o.value = porExtenso(iso, true);
-        o.textContent = porExtenso(iso, true);
+        var extra = dia.slice(10).trim();
+        o.value = porExtenso(dia.slice(0, 10), true) + (extra ? ' ' + extra : '');
+        o.textContent = o.value;
         sel.appendChild(o);
       });
     });
@@ -127,7 +129,7 @@
         '',
         'Nome: ' + d.get('nome'),
         'Dia: ' + d.get('dia'),
-        d.get('entrega') + (d.get('zona') ? ' (' + d.get('zona') + ')' : ''),
+        d.get('entrega') + ': ' + d.get('zona'),
         'Sinal por: ' + d.get('pagamento')
       ];
       if (alergias) linhas.push('Alergias: ' + alergias);
