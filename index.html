@@ -16,13 +16,15 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://casaclodoces.com/images/og-image.jpg">
   <!-- Folha de estilos -->
+  <script src="natal.js"></script>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="page">
 
     <!-- Top note: mensagem limpa e segura, sem "loja online a configurar" -->
-    <div class="top-note">Encomendas artesanais em Lisboa e Margem Sul <em>·</em> caixas, bolos e mesas doces</div>
+    <div class="top-note sem-natal">Encomendas artesanais em Lisboa e Margem Sul <em>·</em> caixas, bolos e mesas doces</div>
+    <div class="top-note so-natal"><span class="natal-aberto">Encomendas de Natal abertas até <span data-natal-data="fimEncomendas">20 de dezembro</span> <em>·</em> <a href="natal.html">reservar já</a></span><span class="natal-fechado-msg">Encomendas de Natal fechadas <em>·</em> obrigada a todos, e Bom Natal</span></div>
 
     <header>
       <nav class="nav" aria-label="Navegação principal">
@@ -31,6 +33,7 @@
           <span>A doçaria da Clo</span>
         </a>
         <div class="menu" id="menu">
+          <a class="natal-link so-natal" href="natal.html">Natal</a>
           <a href="loja.html">Loja</a>
           <a href="eventos.html">Eventos</a>
           <a href="pecas.html">Peças especiais</a>
@@ -72,6 +75,26 @@
 
         <div class="hero-image">
           <img width="900" height="1600" alt="Bolo de chocolate Casa Clo" data-hero-img="1" src="images/img-01.webp">
+        </div>
+      </section>
+
+      <!-- ============================================================
+           NATAL — convite para a pré-venda (só aparece com o Natal ligado,
+           ver natal.js)
+           ============================================================ -->
+      <section class="natal-banner so-natal" aria-label="Encomendas de Natal">
+        <div class="natal-banner-text">
+          <div class="eyebrow">Natal Casa Clo</div>
+          <h2>Um Natal de casa, <em>feito com tempo.</em></h2>
+          <p class="natal-aberto">Pinheiros de merengue, pinhas de chocolate, suspiros e caixas para oferecer, em pré-venda até <span data-natal-data="fimEncomendas">20 de dezembro</span>. Quantidades limitadas.</p>
+          <p class="natal-fechado-msg">As reservas de Natal fecharam. Obrigada a todos, e Bom Natal.</p>
+          <div class="hero-actions natal-aberto">
+            <a class="button primary" href="natal.html">Reservar o meu Natal</a>
+            <a class="button link" href="natal.html#produtos">ver os doces →</a>
+          </div>
+        </div>
+        <div class="natal-banner-img">
+          <img width="1120" height="1400" loading="lazy" src="images/pinhas-chocolate.webp" alt="Pinhas de chocolate com pó de açúcar">
         </div>
       </section>
 

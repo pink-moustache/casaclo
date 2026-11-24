@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Natal — Casa Clo</title>
+  <meta name="description" content="Encomendas de Natal Casa Clo: pinheiros de merengue, pinhas de chocolate, suspiros, cheesecakes e caixas para oferecer. Pré-venda com levantamento ou entrega em Lisboa e Margem Sul.">
+
+  <!-- Open Graph (partilha em redes sociais) -->
+  <meta property="og:title" content="Natal na Casa Clo — encomendas abertas">
+  <meta property="og:description" content="Doces de Natal feitos à mão, por pré-encomenda, em Lisboa e Margem Sul.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://casaclodoces.com/images/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://casaclodoces.com/images/og-image.jpg">
+  <!-- Folha de estilos -->
+  <script src="natal.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="page">
+
+    <!-- Top note: mensagem limpa e segura, sem "loja online a configurar" -->
+    <div class="top-note sem-natal">Encomendas artesanais em Lisboa e Margem Sul <em>·</em> caixas, bolos e mesas doces</div>
+    <div class="top-note so-natal"><span class="natal-aberto">Encomendas de Natal abertas até <span data-natal-data="fimEncomendas">20 de dezembro</span> <em>·</em> <a href="natal.html">reservar já</a></span><span class="natal-fechado-msg">Encomendas de Natal fechadas <em>·</em> obrigada a todos, e Bom Natal</span></div>
+
+    <header>
+      <nav class="nav" aria-label="Navegação principal">
+        <a class="brand" href="index.html" aria-label="Casa Clo">
+          <strong>Casa <em>Clo</em></strong>
+          <span>A doçaria da Clo</span>
+        </a>
+        <div class="menu" id="menu">
+          <a class="natal-link so-natal" href="natal.html" aria-current="page">Natal</a>
+          <a href="loja.html">Loja</a>
+          <a href="eventos.html">Eventos</a>
+          <a href="pecas.html">Peças especiais</a>
+          <a href="clo.html">A Clo</a>
+          <a href="index.html#contactos">Contactos</a>
+          <a class="cart-pill" href="#encomendar">Encomendar</a>
+        </div>
+        <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu">Menu</button>
+      </nav>
+    </header>
+
+    <main id="inicio">
+
+      <!-- Fora da época (natal.js com o Natal desligado): aviso simples -->
+      <section class="section sem-natal" style="padding: 96px 0;">
+        <div class="eyebrow">Natal Casa Clo</div>
+        <h1>As encomendas de Natal <em class="accent">voltam no próximo ano.</em></h1>
+        <p class="lead">Obrigada a todos os que levaram a Casa Clo para a mesa de Natal. Para outras encomendas, fale connosco.</p>
+        <div class="hero-actions"><a class="button primary" href="index.html#contactos">Fazer uma encomenda</a></div>
+      </section>
+
+      <div class="so-natal">
+
+      <!-- ============================================================
+           HERO DE NATAL
+           ============================================================ -->
+      <section class="natal-hero" aria-label="Natal Casa Clo">
+        <div>
+          <div class="eyebrow">Natal Casa Clo · pré-venda</div>
+          <h1>Um Natal de casa, <em class="accent">feito com tempo.</em></h1>
+          <p class="lead">Doces de Natal feitos à mão pela Clo, em quantidade limitada. Reserve até <strong data-natal-data="fimEncomendas">20 de dezembro</strong> e levante (ou receba) na semana do Natal, em Lisboa e Margem Sul.</p>
+          <div class="hero-actions natal-aberto">
+            <a class="button primary" href="#encomendar">Reservar o meu Natal</a>
+            <a class="button link" href="#produtos">ver os doces →</a>
+          </div>
+          <p class="natal-fechado-msg natal-aviso" style="margin-top: 28px;"><strong>As reservas de Natal fecharam.</strong> Obrigada! Se precisar de algo à última hora, escreva-nos pelo WhatsApp e vemos o que é possível.</p>
+          <dl class="natal-datas">
+            <div><dt>Reservas até</dt><dd data-natal-data="fimEncomendas">20 de dezembro</dd></div>
+            <div><dt>Levantamento</dt><dd><span class="ph">22, 23 e 24 dez</span></dd></div>
+            <div><dt>Sinal</dt><dd><span class="ph">50%</span> por MB WAY</dd></div>
+          </dl>
+        </div>
+        <div class="natal-hero-img">
+          <img width="1120" height="1400" src="images/pinheiros-natal.webp" alt="Pinheiros de Natal em merengue branco, feitos à mão pela Clo">
+        </div>
+      </section>
+
+      <!-- ============================================================
+           COMO FUNCIONA A PRÉ-VENDA
+           ============================================================ -->
+      <section class="section process natal-steps">
+        <div class="section-heading">
+          <div>
+            <div class="eyebrow">Como funciona</div>
+            <h2>Reservar, confirmar, levantar.</h2>
+          </div>
+          <p>A produção é pequena e feita à mão, por isso as quantidades são limitadas. A reserva fica garantida com o sinal.</p>
+        </div>
+        <div class="steps">
+          <article class="step"><span>1</span><h3>Escolha</h3><p>Indique os doces, as quantidades e o dia em que quer levantar ou receber.</p></article>
+          <article class="step"><span>2</span><h3>Confirmamos</h3><p>A Clo confirma a disponibilidade em 24-48h e envia o total e os dados de pagamento.</p></article>
+          <article class="step"><span>3</span><h3>Sinal</h3><p>Paga <strong class="ph">50%</strong> por MB WAY ou transferência. A reserva fica garantida.</p></article>
+          <article class="step"><span>4</span><h3>Natal</h3><p>Levanta ou recebe no dia escolhido e paga o restante nessa altura.</p></article>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           PRODUTOS DE NATAL
+           ============================================================ -->
+      <section class="section natal-produtos" id="produtos">
+        <div class="section-heading">
+          <div>
+            <div class="eyebrow">A mesa de Natal</div>
+            <h2>Os doces desta época.</h2>
+          </div>
+          <p>Edição de Natal, feita em pequenas fornadas. Todos os doces podem conter alergénios: veja a <a href="info-alimentar.html" style="text-decoration: underline; text-underline-offset: 4px;">informação alimentar</a>.</p>
+        </div>
+        <div class="product-grid">
+          <article class="product-card">
+            <div class="product-image"><img width="1120" height="1400" loading="lazy" src="images/pinheiros-natal.webp" alt="Pinheiros de Natal em merengue branco"></div>
+            <div class="product-body">
+              <div class="product-topline"><span>Natal</span><span class="tag">Mesa</span></div>
+              <h3>Pinheiros de Natal</h3>
+              <p>Pinheiros em merengue branco, modelados à mão. Peça central da mesa, sozinhos ou em conjunto.</p>
+              <div class="product-meta"><span class="price">Desde 12€</span><a class="mini-button" href="#encomendar" data-natal-produto="qtd-pinheiros">Reservar</a></div>
+            </div>
+          </article>
+          <article class="product-card">
+            <div class="product-image"><img width="1120" height="1400" loading="lazy" src="images/pinhas-chocolate.webp" alt="Pinhas em chocolate moldado com toque de pó de açúcar"></div>
+            <div class="product-body">
+              <div class="product-topline"><span>Natal</span><span class="tag">Chocolate</span></div>
+              <h3>Pinhas de Chocolate</h3>
+              <p>Pinhas inteiras em chocolate, com pó de açúcar. Decoração e doce numa só peça.</p>
+              <div class="product-meta"><span class="price">Desde 8€</span><a class="mini-button" href="#encomendar" data-natal-produto="qtd-pinhas">Reservar</a></div>
+            </div>
+          </article>
+          <article class="product-card">
+            <div class="product-image"><img width="1120" height="1400" loading="lazy" src="images/suspiros-casa-clo.webp" alt="Suspiros brancos em forma de gota"></div>
+            <div class="product-body">
+              <div class="product-topline"><span>Natal</span><span class="tag">Para oferecer</span></div>
+              <h3>Suspiros Casa Clo</h3>
+              <p>Pequenos suspiros em gota, leves e crocantes. Em saquinho, para prenda ou para o café.</p>
+              <div class="product-meta"><span class="price">Desde 8€</span><a class="mini-button" href="#encomendar" data-natal-produto="qtd-suspiros">Reservar</a></div>
+            </div>
+          </article>
+          <article class="product-card">
+            <div class="product-image"><img width="932" height="1400" loading="lazy" src="images/cheesecakes-gingerbread.webp" alt="Mini cheesecakes com bolacha de gingerbread"></div>
+            <div class="product-body">
+              <div class="product-topline"><span>Natal</span><span class="tag">Sobremesa</span></div>
+              <h3>Cheesecakes de gingerbread</h3>
+              <p>Mini cheesecakes com especiarias de Natal e base de gingerbread. Caixa de <span class="ph">6</span>.</p>
+              <div class="product-meta"><span class="price"><span class="ph">Preço a definir</span></span><a class="mini-button" href="#encomendar" data-natal-produto="qtd-cheesecakes">Reservar</a></div>
+            </div>
+          </article>
+          <article class="product-card">
+            <div class="product-image"><img width="900" height="1600" loading="lazy" src="images/img-05.webp" alt="Caixa Casa Clo com doces artesanais"></div>
+            <div class="product-body">
+              <div class="product-topline"><span>Natal</span><span class="tag">Para oferecer</span></div>
+              <h3>Caixa de Natal Casa Clo</h3>
+              <p>Selecção de doces de Natal da Clo, pronta a oferecer, com fita e cartão escrito à mão.</p>
+              <div class="product-meta"><span class="price"><span class="ph">Preço a definir</span></span><a class="mini-button" href="#encomendar" data-natal-produto="qtd-caixa">Reservar</a></div>
+            </div>
+          </article>
+          <article class="product-card">
+            <div class="product-image placeholder"><span>Fotografia em breve</span></div>
+            <div class="product-body">
+              <div class="product-topline"><span>Natal</span><span class="tag">Mesa</span></div>
+              <h3>Bolo de Natal da Clo</h3>
+              <p><span class="ph">Bolo da época a definir com a Clo (ex.: tronco de chocolate ou bolo de frutos secos).</span></p>
+              <div class="product-meta"><span class="price"><span class="ph">Preço a definir</span></span><a class="mini-button" href="#encomendar" data-natal-produto="qtd-bolo">Reservar</a></div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           FORMULÁRIO DE PRÉ-VENDA (Netlify Forms: "encomenda-natal")
+           ============================================================ -->
+      <section class="section newsletter" id="encomendar">
+        <div>
+          <div class="eyebrow">Pré-venda de Natal</div>
+          <h2>Reserve o seu Natal.</h2>
+          <p>Escolha os doces e o dia. A Clo responde em 24-48h com a confirmação, o total e os dados para o sinal.</p>
+          <p class="natal-aviso" style="margin-top: 24px;"><strong>Pagamento:</strong> sinal de <span class="ph">50%</span> por MB WAY (<span class="ph">9xx xxx xxx</span>) ou transferência bancária, para garantir a reserva. O restante paga-se no levantamento ou na entrega.</p>
+        </div>
+
+        <div>
+          <p class="natal-fechado-msg natal-aviso"><strong>As reservas de Natal estão fechadas.</strong> Obrigada! Para algo à última hora, escreva-nos pelo <a href="https://wa.me/351966845351" style="text-decoration: underline;">WhatsApp</a>.</p>
+
+          <form class="form natal-aberto" id="natalForm" name="encomenda-natal" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+            <input type="hidden" name="form-name" value="encomenda-natal">
+            <input type="hidden" name="resumo" value="">
+            <p hidden><label>Não preencher: <input name="bot-field"></label></p>
+
+            <div>
+              <label>Os seus doces de Natal</label>
+              <div class="natal-qtd">
+              <div class="linha">
+                <label for="qtd-pinheiros">Pinheiros de Natal</label>
+                <span class="price">Desde 12€</span>
+                <input id="qtd-pinheiros" name="qtd-pinheiros" type="number" min="0" max="50" value="0" inputmode="numeric">
+              </div>
+              <div class="linha">
+                <label for="qtd-pinhas">Pinhas de Chocolate</label>
+                <span class="price">Desde 8€</span>
+                <input id="qtd-pinhas" name="qtd-pinhas" type="number" min="0" max="50" value="0" inputmode="numeric">
+              </div>
+              <div class="linha">
+                <label for="qtd-suspiros">Suspiros Casa Clo</label>
+                <span class="price">Desde 8€</span>
+                <input id="qtd-suspiros" name="qtd-suspiros" type="number" min="0" max="50" value="0" inputmode="numeric">
+              </div>
+              <div class="linha">
+                <label for="qtd-cheesecakes">Cheesecakes de gingerbread</label>
+                <span class="price"><span class="ph">Preço a definir</span></span>
+                <input id="qtd-cheesecakes" name="qtd-cheesecakes" type="number" min="0" max="50" value="0" inputmode="numeric">
+              </div>
+              <div class="linha">
+                <label for="qtd-caixa">Caixa de Natal Casa Clo</label>
+                <span class="price"><span class="ph">Preço a definir</span></span>
+                <input id="qtd-caixa" name="qtd-caixa" type="number" min="0" max="50" value="0" inputmode="numeric">
+              </div>
+              <div class="linha">
+                <label for="qtd-bolo">Bolo de Natal da Clo</label>
+                <span class="price"><span class="ph">Preço a definir</span></span>
+                <input id="qtd-bolo" name="qtd-bolo" type="number" min="0" max="50" value="0" inputmode="numeric">
+              </div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div>
+                <label for="n-nome">Nome</label>
+                <input id="n-nome" name="nome" type="text" placeholder="O seu nome" required autocomplete="name">
+              </div>
+              <div>
+                <label for="n-telefone">Telemóvel</label>
+                <input id="n-telefone" name="telefone" type="tel" placeholder="Para o MB WAY e contacto" required autocomplete="tel">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div>
+                <label for="n-dia">Dia</label>
+                <select id="n-dia" name="dia" data-natal-dias required>
+                  <option>terça, 22 de dezembro</option>
+                  <option>quarta, 23 de dezembro</option>
+                  <option>quinta, 24 de dezembro</option>
+                </select>
+              </div>
+              <div>
+                <label for="n-entrega">Levantamento ou entrega</label>
+                <select id="n-entrega" name="entrega">
+                  <option>Levantamento</option>
+                  <option>Entrega — Lisboa</option>
+                  <option>Entrega — Margem Sul</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div>
+                <label for="n-zona">Morada ou zona (se entrega)</label>
+                <input id="n-zona" name="zona" type="text" placeholder="Ex.: Almada, Campo de Ourique…" autocomplete="street-address">
+              </div>
+              <div>
+                <label for="n-pagamento">Pagamento do sinal</label>
+                <select id="n-pagamento" name="pagamento">
+                  <option>MB WAY</option>
+                  <option>Transferência bancária</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label>Alergias ou restrições alimentares</label>
+              <div class="checkbox-group" role="group" aria-label="Alergénios a evitar">
+                <label><input type="checkbox" name="alergias" value="frutos-secos"> Frutos secos</label>
+                <label><input type="checkbox" name="alergias" value="gluten"> Glúten</label>
+                <label><input type="checkbox" name="alergias" value="lactose"> Lactose</label>
+                <label><input type="checkbox" name="alergias" value="ovo"> Ovo</label>
+                <label><input type="checkbox" name="alergias" value="outras"> Outras (indicar abaixo)</label>
+              </div>
+            </div>
+
+            <div>
+              <label for="n-mensagem">Notas</label>
+              <textarea id="n-mensagem" name="mensagem" placeholder="Mensagem para o cartão da caixa, hora preferida, outros pedidos…"></textarea>
+            </div>
+
+            <div>
+              <label class="checkbox-group" style="margin-top: 0;">
+                <input type="checkbox" name="rgpd" value="sim" required>
+                <span>Aceito que os meus dados sejam usados para responder a esta reserva. <a href="privacidade.html" style="text-decoration: underline;">Política de privacidade</a></span>
+              </label>
+            </div>
+
+            <button type="submit" class="button primary">Enviar reserva</button>
+            <p class="form-note" id="natalStatus" hidden></p>
+          </form>
+        </div>
+      </section>
+
+      </div><!-- /.so-natal -->
+    </main>
+
+    <!-- ============================================================
+         FOOTER — agora com links legais (placeholders)
+         ============================================================ -->
+    <footer>
+      <div class="footer-inner">
+        <div>
+          <div class="footer-brand">Casa Clo</div>
+          <p>A doçaria da Clo.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Encomendas</h4>
+          <p>Lisboa e Margem Sul</p>
+          <p>Produtos por pré-encomenda</p>
+          <p>Eventos e peças especiais sob orçamento</p>
+        </div>
+        <div class="footer-col">
+          <h4>Contacto</h4>
+          <!-- TODO: confirmar handle do Instagram -->
+          <a href="mailto:encomendas@casaclodoces.com">encomendas@casaclodoces.com</a>
+          <a href="https://instagram.com/casaclo" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://wa.me/351966845351" target="_blank" rel="noopener">WhatsApp</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© <span id="year"></span> Casa Clo. Todos os direitos reservados.</span>
+        <div class="footer-legal">
+          <a href="termos.html">Termos e condições</a>
+          <a href="privacidade.html">Privacidade</a>
+          <a href="info-alimentar.html">Informação alimentar</a>
+          <a href="https://www.livroreclamacoes.pt/" target="_blank" rel="noopener">Livro de reclamações</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
