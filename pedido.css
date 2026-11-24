@@ -1,0 +1,275 @@
+/* ============================================================
+   Formulário "Pedido de encomenda" da página inicial (#contactos)
+   11/2026. Ficheiro próprio para não mexer no style.css partilhado.
+   Tudo fica dentro de .pedido: os outros formulários não mudam.
+   ============================================================ */
+
+.pedido {
+  grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+  gap: clamp(40px, 6vw, 84px);
+  border-top: 3px solid var(--cherry);
+}
+
+/* ---------- Coluna da esquerda ---------- */
+.pedido-intro {
+  position: sticky;
+  top: 120px;
+}
+.pedido-intro h2 { max-width: 13ch; }
+
+.pedido-passos {
+  list-style: none;
+  margin: 34px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 18px;
+}
+.pedido-passos li {
+  display: grid;
+  grid-template-columns: 34px 1fr;
+  gap: 14px;
+  align-items: start;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--cocoa);
+}
+.pedido-passos strong {
+  display: block;
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 17px;
+  color: var(--chocolate);
+  margin-bottom: 2px;
+}
+.pedido-passos li > span,
+.pedido-form legend span {
+  display: inline-grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid rgba(154, 31, 46, 0.45);
+  color: var(--cherry);
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 15px;
+  line-height: 1;
+}
+
+.newsletter .pedido-direto {
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(58, 38, 32, 0.12);
+  font-size: 13px;
+  line-height: 1.7;
+}
+.pedido-direto a {
+  color: var(--cherry);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+/* ---------- Formulário em quatro blocos ---------- */
+.pedido-form { gap: 0; }
+
+.pedido-form fieldset {
+  margin: 0;
+  padding: 0 0 26px;
+  border: 0;
+  border-bottom: 1px solid rgba(58, 38, 32, 0.10);
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+}
+.pedido-form fieldset + fieldset { padding-top: 26px; }
+
+.pedido-form legend {
+  float: left; /* a legend fica dentro da grelha, em vez de cortar a linha */
+  width: 100%;
+  padding: 0;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--serif);
+  font-size: 21px;
+  line-height: 1.2;
+  color: var(--chocolate);
+}
+.pedido-form legend span { width: 28px; height: 28px; font-size: 13px; }
+
+.pedido-form .form-row { gap: 14px; }
+
+.pedido-form label,
+.pedido-label {
+  display: block;
+  margin: 0 0 7px;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cocoa);
+}
+.newsletter .pedido-label { margin: 0 0 10px; color: var(--cocoa); }
+
+.pedido-form input:not([type="checkbox"]),
+.pedido-form select,
+.pedido-form textarea {
+  min-height: 50px;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(58, 38, 32, 0.14);
+  border-radius: 12px;
+  font-size: 15px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+.pedido-form input::placeholder,
+.pedido-form textarea::placeholder { color: rgba(108, 74, 63, 0.62); }
+.pedido-form input:not([type="checkbox"]):hover,
+.pedido-form select:hover,
+.pedido-form textarea:hover { border-color: rgba(58, 38, 32, 0.28); }
+.pedido-form input:not([type="checkbox"]):focus,
+.pedido-form select:focus,
+.pedido-form textarea:focus {
+  border-color: var(--cherry);
+  background: var(--white);
+  box-shadow: 0 0 0 3px rgba(154, 31, 46, 0.12);
+}
+
+.pedido-form select {
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 42px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%236C4A3F' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  cursor: pointer;
+}
+.pedido-form input[type="date"] { -webkit-appearance: none; appearance: none; }
+.pedido-form textarea { min-height: 128px; line-height: 1.5; }
+
+/* Alergias em etiquetas que se ligam/desligam */
+.pedido-chips { gap: 8px 6px; margin-top: 0; }
+.pedido-chips label {
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 13px 8px 11px;
+  border: 1px solid rgba(58, 38, 32, 0.16);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.6);
+  font-size: 13px;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--chocolate);
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  user-select: none;
+}
+.pedido-chips label:hover { border-color: rgba(154, 31, 46, 0.45); }
+.pedido-chips input {
+  width: 15px;
+  height: 15px;
+  margin: 0;
+  accent-color: var(--cherry);
+  cursor: pointer;
+}
+.pedido-chips label:has(input:checked) {
+  background: var(--rose-soft);
+  border-color: var(--cherry);
+  color: var(--cherry-deep);
+}
+.pedido-chips label:has(input:focus-visible) {
+  outline: 2px solid var(--cherry);
+  outline-offset: 2px;
+}
+
+/* ---------- Consentimento e envio ---------- */
+.pedido-envio {
+  padding-top: 26px;
+  display: grid;
+  gap: 16px;
+}
+.pedido-form .pedido-consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin: 0;
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: rgba(244, 236, 224, 0.7);
+  font-size: 13px;
+  line-height: 1.55;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--cocoa);
+  cursor: pointer;
+}
+.pedido-consent input {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  margin: 1px 0 0;
+  accent-color: var(--cherry);
+  cursor: pointer;
+}
+.pedido-consent a {
+  color: var(--cherry);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  white-space: nowrap;
+}
+
+.pedido .pedido-botao {
+  width: 100%;
+  min-height: 56px;
+  gap: 10px;
+  background: var(--cherry);
+  border-color: var(--cherry);
+  color: var(--paper);
+  font-size: 15px;
+  letter-spacing: 0.02em;
+  box-shadow: 0 12px 28px rgba(154, 31, 46, 0.22);
+  cursor: pointer;
+}
+.pedido .pedido-botao:hover,
+.pedido .pedido-botao:focus-visible {
+  background: var(--cherry-deep);
+  border-color: var(--cherry-deep);
+}
+.pedido .pedido-botao:focus-visible { outline: 2px solid var(--cherry); outline-offset: 3px; }
+
+.newsletter .pedido-nota {
+  margin: -4px 0 0;
+  text-align: center;
+  font-size: 12px;
+  color: var(--cocoa);
+}
+.pedido .form-note {
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: var(--rose-soft);
+  color: var(--cherry-deep);
+  font-size: 13px;
+}
+
+/* ---------- Tablet e telemóvel ---------- */
+@media (max-width: 980px) {
+  .pedido { grid-template-columns: 1fr; gap: 36px; }
+  .pedido-intro { position: static; }
+  .pedido-intro h2 { max-width: 16ch; }
+  .pedido-passos { grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .pedido-passos li { grid-template-columns: 1fr; gap: 10px; }
+}
+@media (max-width: 640px) {
+  .pedido { padding: 30px 20px; }
+  .pedido-passos { grid-template-columns: 1fr; gap: 14px; margin-top: 26px; }
+  .pedido-passos li { grid-template-columns: 30px 1fr; gap: 12px; }
+  .pedido-passos li > span { width: 30px; height: 30px; font-size: 14px; }
+  .pedido-form legend { font-size: 19px; }
+  .pedido-form .form-row { grid-template-columns: 1fr; gap: 16px; }
+  .pedido-form .form-row.pedido-par { grid-template-columns: 1.25fr 1fr; gap: 12px; }
+  .pedido-form input:not([type="checkbox"]),
+  .pedido-form select,
+  .pedido-form textarea { font-size: 16px; } /* evita o zoom do iPhone ao tocar */
+}
