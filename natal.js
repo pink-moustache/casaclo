@@ -77,6 +77,14 @@
         sel.appendChild(o);
       });
     });
+    // Contagem: "Faltam N dias para fechar as reservas"
+    document.querySelectorAll('[data-natal-contagem]').forEach(function (el) {
+      var fim = new Date(NATAL.fimEncomendas + 'T23:59:59');
+      var dias = Math.ceil((fim - new Date()) / 86400000);
+      if (dias < 1) return;
+      el.textContent = dias === 1 ? 'Último dia para reservar' : 'Faltam ' + dias + ' dias para fechar as reservas';
+      el.hidden = false;
+    });
     ligarReserva();
   });
 
