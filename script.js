@@ -1,7 +1,7 @@
 /* ============================================================
    Casa Clo — script principal
    - Menu mobile (toggle do botão hambúrguer)
-   - Submissão do formulário (Netlify Forms; e-mail como recurso)
+   - Formulários enviados pelo WhatsApp (data-whatsapp)
    - Ano dinâmico no footer
    ============================================================ */
 
@@ -36,81 +36,64 @@ document.addEventListener('DOMContentLoaded', function () {
     yearEl.textContent = new Date().getFullYear();
   }
 
-  /* ---------- 3. Submissão do formulário ----------
-     Envia o pedido para o Netlify Forms (form "pedido-encomenda"), sem
-     depender do cliente de e-mail do visitante. Se o envio falhar, cai para
-     o método antigo (abrir o e-mail com o pedido preenchido).
-     Fase B (site na Decima Cloud): trocar o endpoint "/" por um próprio. */
-  var form = document.getElementById('orderForm');
-  var status = document.getElementById('formStatus');
-  var to = 'encomendas@casaclodoces.com';
+  /* ---------- 3. Formulários → WhatsApp ----------
+     Qualquer <form data-whatsapp="Título"> é enviado pelo WhatsApp da Clo:
+     ao submeter, abre o WhatsApp com o pedido já escrito (um campo por linha,
+     com o texto da etiqueta de cada campo). Para um formulário novo (ex.:
+     pré-venda de Natal), basta pôr data-whatsapp no <form>.
+     Campos sem valor e o consentimento (name="rgpd") ficam de fora. */
+  var WHATSAPP = '351966845351';
+  var EMAIL = 'encomendas@casaclodoces.com';
 
-  function showStatus(msg) {
-    if (status) {
-      status.hidden = false;
-      status.textContent = msg;
-    }
+  function etiqueta(campo) {
+    var grupo = campo.closest('[role="group"]');
+    if (grupo && grupo.getAttribute('aria-label')) return grupo.getAttribute('aria-label');
+    if (campo.labels && campo.labels[0]) return campo.labels[0].textContent.trim();
+    return campo.name;
   }
 
-  function abrirEmail(data) {
-    var alergias = data.getAll('alergias').join(', ') || '—';
-    var corpo = [
-      'Novo pedido de encomenda — Casa Clo',
-      '',
-      'Nome: ' + (data.get('nome') || '—'),
-      'Contacto: ' + (data.get('contacto') || '—'),
-      'Tipo de pedido: ' + (data.get('tipo') || '—'),
-      'Ocasião: ' + (data.get('ocasiao') || '—'),
-      'Nº de pessoas: ' + (data.get('pessoas') || '—'),
-      'Data pretendida: ' + (data.get('data') || '—'),
-      'Entrega/levantamento: ' + (data.get('entrega') || '—'),
-      'Zona: ' + (data.get('zona') || '—'),
-      'Alergias: ' + alergias,
-      '',
-      'Mensagem:',
-      (data.get('mensagem') || '—')
-    ].join('\n');
-    var subject = 'Pedido Casa Clo — ' + (data.get('nome') || 'sem nome');
-    window.location.href = 'mailto:' + to
-      + '?subject=' + encodeURIComponent(subject)
-      + '&body=' + encodeURIComponent(corpo);
+  function textoDoPedido(form) {
+    var data = new FormData(form);
+    var linhas = ['Olá Clo! ' + form.getAttribute('data-whatsapp') + ' (casaclodoces.com)', ''];
+    var vistos = {};
+    Array.prototype.forEach.call(form.elements, function (campo) {
+      var nome = campo.name;
+      if (!nome || nome === 'rgpd' || vistos[nome] || campo.type === 'submit') return;
+      vistos[nome] = true;
+      var valores = data.getAll(nome).map(function (v) {
+        // Checkboxes: usar o texto visível em vez do value
+        var opcao = form.querySelector('input[name="' + nome + '"][value="' + v + '"]');
+        if (opcao && (opcao.type === 'checkbox' || opcao.type === 'radio') && opcao.parentNode.tagName === 'LABEL') {
+          return opcao.parentNode.textContent.trim();
+        }
+        if (campo.tagName === 'SELECT' && campo.selectedOptions[0]) return campo.selectedOptions[0].textContent.trim();
+        if (campo.type === 'date' && v) return v.split('-').reverse().join('/');
+        return String(v).trim();
+      }).filter(Boolean);
+      if (!valores.length) return;
+      if (campo.tagName === 'TEXTAREA') {
+        linhas.push('', etiqueta(campo) + ':', valores.join(', '));
+      } else {
+        linhas.push(etiqueta(campo) + ': ' + valores.join(', '));
+      }
+    });
+    return linhas.join('\n');
   }
 
-  if (form) {
-    var button = form.querySelector('button[type="submit"]');
-
+  document.querySelectorAll('form[data-whatsapp]').forEach(function (form) {
+    var status = form.querySelector('.form-note');
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-
-      var data = new FormData(form);
-
-      // As alergias vão num só campo, para aparecerem juntas no Netlify
-      var body = new URLSearchParams();
-      data.forEach(function (value, key) {
-        if (key !== 'alergias') body.append(key, value);
-      });
-      body.append('alergias', data.getAll('alergias').join(', ') || '—');
-
-      if (button) button.disabled = true;
-      showStatus('A enviar o pedido…');
-
-      fetch('/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: body.toString()
-      })
-        .then(function (res) {
-          if (!res.ok) throw new Error('HTTP ' + res.status);
-          form.reset();
-          showStatus('Pedido enviado. Obrigada! A Clo responde em 24-48h.');
-        })
-        .catch(function () {
-          showStatus('Não foi possível enviar daqui. Vamos abrir o seu e-mail com o pedido preenchido. Se nada acontecer, escreva para ' + to);
-          abrirEmail(data);
-        })
-        .then(function () {
-          if (button) button.disabled = false;
-        });
+      var url = 'https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent(textoDoPedido(form));
+      // Sem 'noopener' no open(): com ele o browser devolve sempre null
+      var janela = window.open(url, '_blank');
+      if (janela) janela.opener = null;
+      else window.location.href = url;
+      if (status) {
+        status.hidden = false;
+        status.textContent = 'A abrir o WhatsApp com o seu pedido. Só falta carregar em enviar. Se não abrir, escreva para '
+          + EMAIL + ' ou +351 966 845 351.';
+      }
     });
-  }
+  });
 });
