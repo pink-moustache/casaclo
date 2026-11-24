@@ -82,7 +82,8 @@ document.addEventListener('DOMContentLoaded', function () {
      ao submeter, abre o WhatsApp com o pedido já escrito (um campo por linha,
      com o texto da etiqueta de cada campo). Para um formulário novo (ex.:
      pré-venda de Natal), basta pôr data-whatsapp no <form>.
-     Campos sem valor e o consentimento (name="rgpd") ficam de fora. */
+     Campos sem valor (incluindo selects por escolher, cuja opção tem value="")
+     e o consentimento (name="rgpd") ficam de fora. */
   var WHATSAPP = '351966845351';
   var EMAIL = 'encomendas@casaclodoces.com';
 
@@ -101,13 +102,19 @@ document.addEventListener('DOMContentLoaded', function () {
       var nome = campo.name;
       if (!nome || nome === 'rgpd' || vistos[nome] || campo.type === 'submit') return;
       vistos[nome] = true;
-      var valores = data.getAll(nome).map(function (v) {
+      // Valores vazios (ex.: «— selecionar —» com value="") ficam de fora
+      var valores = data.getAll(nome).filter(function (v) {
+        return String(v).trim() !== '';
+      }).map(function (v) {
         // Checkboxes: usar o texto visível em vez do value
         var opcao = form.querySelector('input[name="' + nome + '"][value="' + v + '"]');
         if (opcao && (opcao.type === 'checkbox' || opcao.type === 'radio') && opcao.parentNode.tagName === 'LABEL') {
           return opcao.parentNode.textContent.trim();
         }
-        if (campo.tagName === 'SELECT' && campo.selectedOptions[0]) return campo.selectedOptions[0].textContent.trim();
+        if (campo.tagName === 'SELECT') {
+          var escolhida = Array.prototype.find.call(campo.options, function (o) { return o.selected && o.value === v; });
+          if (escolhida) return escolhida.textContent.trim();
+        }
         if (campo.type === 'date' && v) return v.split('-').reverse().join('/');
         return String(v).trim();
       }).filter(Boolean);
