@@ -36,6 +36,15 @@ document.addEventListener('DOMContentLoaded', function () {
     yearEl.textContent = new Date().getFullYear();
   }
 
+  /* ---------- 2b. Produto vindo da loja ----------
+     Os botões "Encomendar"/"Orçamento" da loja abrem index.html?produto=…
+     Preenche o campo Produto para a Clo saber de onde vem o pedido. */
+  var produtoEl = document.getElementById('produto');
+  if (produtoEl && window.URLSearchParams) {
+    var produto = new URLSearchParams(window.location.search).get('produto');
+    if (produto) produtoEl.value = produto.slice(0, 80);
+  }
+
   /* ---------- 3. Submissão do formulário ----------
      Envia o pedido para o Netlify Forms (form "pedido-encomenda"), sem
      depender do cliente de e-mail do visitante. Se o envio falhar, cai para
@@ -59,6 +68,7 @@ document.addEventListener('DOMContentLoaded', function () {
       '',
       'Nome: ' + (data.get('nome') || '—'),
       'Contacto: ' + (data.get('contacto') || '—'),
+      'Produto: ' + (data.get('produto') || '—'),
       'Tipo de pedido: ' + (data.get('tipo') || '—'),
       'Ocasião: ' + (data.get('ocasiao') || '—'),
       'Nº de pessoas: ' + (data.get('pessoas') || '—'),
