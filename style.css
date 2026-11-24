@@ -1807,3 +1807,115 @@ img { height: auto; }
   .natal-selo em { font-size: 16px; }
 }
 .product-image.placeholder .natal-fita { position: absolute; margin: 0; color: var(--paper); font-size: 10px; letter-spacing: 0.18em; }
+
+/* ============================================================
+   NATAL — direcção "noite dourada" (azul-noite + pontilhado dourado)
+   Sobrepõe a versão verde-pinho acima.
+   ============================================================ */
+:root {
+  --noite: #0E2030;
+  --noite-funda: #091723;
+  --ouro: #D4AF6A;
+  --ouro-claro: #F1DDAA;
+}
+
+/* Em todo o site durante a época */
+html.natal .top-note { background: var(--noite); }
+html.natal .top-note em { color: var(--ouro); }
+html.natal header::after {
+  height: 4px; opacity: 1;
+  background: radial-gradient(circle, var(--ouro) 1.2px, transparent 1.6px) 0 50% / 9px 4px repeat-x, var(--noite);
+}
+html.natal .brand strong::after { color: var(--ouro); }
+.natal-banner { background: var(--noite); }
+.natal-banner .eyebrow, .natal-banner h2 em { color: var(--ouro); }
+.natal-banner .button.link { color: var(--ouro-claro); border-color: var(--ouro-claro); }
+
+/* Palco: céu de noite com estrelas douradas e floresta pontilhada */
+.natal-palco {
+  background:
+    radial-gradient(1.4px 1.4px at 12% 18%, var(--ouro-claro), transparent 70%),
+    radial-gradient(1px 1px at 27% 8%, var(--ouro), transparent 70%),
+    radial-gradient(1.6px 1.6px at 44% 22%, var(--ouro-claro), transparent 70%),
+    radial-gradient(1px 1px at 58% 12%, var(--ouro), transparent 70%),
+    radial-gradient(1.3px 1.3px at 71% 30%, var(--ouro-claro), transparent 70%),
+    radial-gradient(1px 1px at 86% 9%, var(--ouro), transparent 70%),
+    radial-gradient(1.5px 1.5px at 93% 26%, var(--ouro-claro), transparent 70%),
+    radial-gradient(1px 1px at 5% 40%, var(--ouro), transparent 70%),
+    radial-gradient(1px 1px at 52% 44%, var(--ouro), transparent 70%),
+    linear-gradient(180deg, var(--noite-funda) 0%, var(--noite) 100%);
+  padding: 72px 0 0;
+}
+.natal-neve {
+  opacity: 0.8;
+  background-image:
+    radial-gradient(1.6px 1.6px at 20px 30px, var(--ouro-claro), transparent 60%),
+    radial-gradient(1.2px 1.2px at 120px 80px, var(--ouro), transparent 60%),
+    radial-gradient(1.8px 1.8px at 200px 160px, var(--ouro-claro), transparent 60%),
+    radial-gradient(1.1px 1.1px at 60px 200px, var(--ouro), transparent 60%),
+    radial-gradient(1.4px 1.4px at 170px 240px, var(--ouro-claro), transparent 60%);
+  animation-duration: 40s;
+}
+.natal-floresta {
+  height: clamp(170px, 22vw, 320px);
+  margin-top: -40px;
+  background: url(images/natal-pinheiros-dourados.webp) center bottom / cover no-repeat;
+  position: relative; z-index: 0;
+}
+.natal-palco .natal-hero { padding-bottom: 20px; }
+.natal-palco .eyebrow { color: var(--ouro); letter-spacing: 0.32em; }
+.natal-palco h1 { color: #F6EFE2; }
+.natal-palco h1 .accent {
+  background: linear-gradient(180deg, var(--ouro-claro), var(--ouro) 60%, #A8823F);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.natal-palco .lead { color: rgba(246, 239, 226, 0.82); }
+.natal-palco .hero-actions .button.primary { background: var(--ouro); border-color: var(--ouro); color: var(--noite-funda); }
+.natal-palco .button.link { color: var(--ouro-claro); border-color: var(--ouro-claro); }
+.natal-palco .natal-contagem { border-color: rgba(212, 175, 106, 0.6); color: var(--ouro-claro); }
+.natal-palco .natal-datas { background: rgba(212, 175, 106, 0.3); border-color: rgba(212, 175, 106, 0.3); }
+.natal-palco .natal-datas div { background: rgba(9, 23, 35, 0.75); }
+.natal-palco .natal-datas dt, .natal-palco .natal-datas small { color: var(--ouro) !important; }
+.natal-palco .natal-hero-img img { border: 1px solid rgba(212, 175, 106, 0.7); box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45); outline: 6px solid rgba(9, 23, 35, 0.6); }
+.natal-selo { background: var(--noite-funda); color: var(--ouro-claro); border: 1px solid var(--ouro); outline-color: rgba(212, 175, 106, 0.55); }
+.natal-selo em { color: var(--ouro); }
+
+/* "Como funciona" em azul-noite */
+.natal-faixa { background: var(--noite-funda); }
+.natal-faixa .eyebrow { color: var(--ouro); }
+.natal-faixa .step { background: rgba(255, 255, 255, 0.04); border-color: rgba(212, 175, 106, 0.25); }
+.natal-faixa .natal-steps .step span { border-color: var(--ouro); color: var(--ouro-claro); }
+
+/* Cartões e formulário */
+.natal-fita { background: var(--noite); color: var(--ouro-claro); }
+.natal-fita::before { color: var(--ouro); }
+.pagina-natal .natal-estrela { color: var(--ouro); }
+.pagina-natal .natal-produtos .product-card { border-color: rgba(212, 175, 106, 0.55); }
+.pagina-natal #encomendar { border-top-color: var(--noite); box-shadow: var(--shadow), inset 0 0 0 1px rgba(212, 175, 106, 0.4); }
+.pagina-natal #encomendar .button.primary { background: var(--noite); border-color: var(--noite); color: var(--ouro-claro); }
+
+/* Despedida: cartão de boas-festas */
+.natal-despedida {
+  background: linear-gradient(180deg, var(--noite-funda), var(--noite));
+  padding: 90px 18px 0; margin-top: 0; overflow: hidden;
+}
+.natal-despedida-titulo {
+  font-family: var(--sans); font-weight: 300; text-transform: uppercase;
+  letter-spacing: 0.32em; font-size: clamp(30px, 4.4vw, 58px); margin: 0;
+  background: linear-gradient(180deg, var(--ouro-claro), var(--ouro) 55%, #A8823F);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.natal-despedida-sub { font-family: var(--serif); font-style: italic; color: rgba(246, 239, 226, 0.75); font-size: 20px; margin: 14px 0 0; }
+.natal-despedida .natal-floresta { margin: 10px -18px 0; }
+/* afinações: fundo liso (a floresta tem o mesmo azul), botão dourado */
+.natal-palco { background-color: var(--noite); background-image:
+    radial-gradient(1.4px 1.4px at 12% 18%, var(--ouro-claro), transparent 70%),
+    radial-gradient(1px 1px at 27% 8%, var(--ouro), transparent 70%),
+    radial-gradient(1.6px 1.6px at 44% 22%, var(--ouro-claro), transparent 70%),
+    radial-gradient(1px 1px at 58% 12%, var(--ouro), transparent 70%),
+    radial-gradient(1.3px 1.3px at 71% 30%, var(--ouro-claro), transparent 70%),
+    radial-gradient(1px 1px at 86% 9%, var(--ouro), transparent 70%),
+    radial-gradient(1.5px 1.5px at 93% 26%, var(--ouro-claro), transparent 70%); }
+.natal-despedida { background: var(--noite); }
+.natal-floresta { margin-top: 16px; }
+html.natal .natal-palco .hero-actions .button.primary { background: var(--ouro); border-color: var(--ouro); color: var(--noite-funda); }
