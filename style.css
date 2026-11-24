@@ -1919,3 +1919,21 @@ html.natal .brand strong::after { color: var(--ouro); }
 .natal-despedida { background: var(--noite); }
 .natal-floresta { margin-top: 16px; }
 html.natal .natal-palco .hero-actions .button.primary { background: var(--ouro); border-color: var(--ouro); color: var(--noite-funda); }
+/* floresta inteira (sem cortar o topo) + estrelas a cintilar */
+.natal-floresta {
+  height: auto; aspect-ratio: 2000 / 750; min-height: 220px;
+  background-size: cover; background-position: center bottom;
+}
+.natal-palco::after {
+  content: ""; position: absolute; inset: 0 0 40% 0; pointer-events: none;
+  background-image:
+    radial-gradient(2px 2px at 18% 14%, #fff7e0, transparent 70%),
+    radial-gradient(2.4px 2.4px at 63% 6%, #fff7e0, transparent 70%),
+    radial-gradient(2px 2px at 81% 20%, #fff7e0, transparent 70%),
+    radial-gradient(1.8px 1.8px at 36% 32%, #fff7e0, transparent 70%);
+  animation: natal-cintila 3.2s ease-in-out infinite alternate;
+}
+@keyframes natal-cintila { from { opacity: 0.15; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .natal-palco::after { animation: none; } }
+.natal-palco .natal-floresta { margin-top: -90px; }
+@media (max-width: 860px) { .natal-palco .natal-floresta { margin-top: -30px; } }
