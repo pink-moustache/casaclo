@@ -2021,3 +2021,71 @@ html.natal .natal-banner .hero-actions .button.primary { background: var(--ouro)
 .natal-banner .natal-banner-img img { height: auto !important; object-fit: contain; }
 .natal-hero-img img { height: auto !important; object-fit: contain; }
 .product-image.placeholder { aspect-ratio: 4 / 5 !important; }
+
+/* Botão de Natal no menu: azul-noite com dourado (pedido da Inês, 24/11). */
+.menu a.natal-link {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 8px 16px 8px 13px;
+  border-radius: 999px;
+  background: var(--noite);
+  border: 1px solid var(--ouro);
+  color: var(--ouro-claro);
+  font-family: var(--serif); font-style: italic; font-size: 15px; line-height: 1;
+  box-shadow: 0 0 0 3px rgba(212, 175, 106, 0.16);
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.menu a.natal-link::before { content: "✦"; font-style: normal; font-size: 11px; color: var(--ouro); }
+.menu a.natal-link::after { display: none; }
+.menu a.natal-link:hover,
+.menu a.natal-link[aria-current="page"] { background: var(--noite-funda); color: #fff; }
+html.natal .menu a.natal-link.so-natal { display: inline-flex; }
+@media (max-width: 760px) {
+  html.natal .menu a.natal-link.so-natal { display: flex; justify-content: center !important; margin: 4px 0 10px; padding: 13px 16px; border-bottom: 1px solid var(--ouro); font-size: 17px; }
+}
+
+/* Loja: em cada linha as fotos têm a mesma altura (pedido da Inês, 24/11).
+   A moldura tem a proporção da linha (--r = altura/largura, por omissão 5:4)
+   e cada foto foi verificada para que o recorte só leve fundo, nunca o doce.
+   Para afinar o enquadramento de uma foto: style="--pos: 50% 70%" no <img>. */
+.collection-block .product-grid { container-type: inline-size; --cols: 3; --gap: 18px; gap: var(--gap); }
+@media (max-width: 760px) { .collection-block .product-grid { --cols: 2; } }
+@media (max-width: 640px) { .collection-block .product-grid { --gap: 12px; } }
+.collection-block .product-grid .product-image,
+.collection-block .product-grid .product-card:last-child:nth-child(odd) .product-image {
+  position: relative;
+  height: calc((100cqw - (var(--cols) - 1) * var(--gap)) / var(--cols) * var(--r, 1.25)) !important;
+  min-height: 0 !important; aspect-ratio: auto !important;
+}
+.collection-block .product-grid .product-image img,
+.collection-block .product-grid .product-card:last-child:nth-child(odd) .product-image img {
+  position: absolute !important; inset: 0; width: 100%; height: 100% !important;
+  object-fit: cover; object-position: var(--pos, 50% 50%);
+}
+/* Fotos ao comprido (Aldeia): o cartão ocupa duas colunas, com a mesma altura de foto. */
+.collection-block .product-grid .cartao-duplo { grid-column: span 2; }
+/* Telemóvel: o cartão que fica sozinho na última linha ocupa a linha toda, foto ao lado do texto. */
+@media (max-width: 640px) {
+  .collection-block .product-grid:has(.cartao-duplo) { grid-auto-flow: row dense; }
+  html:not(.natal) .collection-block .product-grid .cartao-largo-movel { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; }
+  html:not(.natal) .collection-block .product-grid .cartao-largo-movel .product-image { border-radius: 16px 0 0 16px; }
+  html:not(.natal) .collection-block .product-grid .cartao-largo-movel .product-topline { left: 8px; right: auto; }
+}
+
+/* Página de Natal: secção Bolos (Charlotte, Bolo de Gengibre, Tarte), na mesma linha.
+   As três fotos têm a mesma proporção (2:3), por isso ficam da mesma altura sem cortes. */
+.natal-subsecao { display: flex; align-items: baseline; gap: 8px 16px; flex-wrap: wrap; margin: 64px 0 22px; padding-bottom: 12px; border-bottom: 1px solid rgba(212, 175, 106, 0.45); }
+.natal-subsecao h3 { font-family: var(--serif); font-weight: 400; font-size: clamp(26px, 2.6vw, 34px); margin: 0; }
+.natal-subsecao .meta { font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--cocoa); }
+.natal-produtos .natal-bolos { grid-template-columns: repeat(4, 1fr); }
+@media (max-width: 980px) { .natal-produtos .natal-bolos { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 640px) { .natal-produtos .natal-bolos { gap: 12px; } .natal-produtos .natal-bolos .product-card:not(.natal-aldeia) .product-body { padding: 14px; } .natal-produtos .natal-bolos .product-card:not(.natal-aldeia) .product-body p { display: none; } .natal-produtos .natal-bolos .product-card:not(.natal-aldeia) h3 { font-size: 16px; } .natal-produtos .natal-bolos .product-card:not(.natal-aldeia) .product-meta { flex-direction: column; align-items: stretch; gap: 8px; } }
+
+/* Caixa de Natal ao lado das Árvores de Trufas, a ocupar duas colunas.
+   A moldura tem a altura da foto das Árvores (2:3 numa coluna); a foto é um
+   tabuleiro cheio de doces e o enquadramento só tira flores e fundo de cima. */
+.natal-produtos .product-grid { container-type: inline-size; }
+@media (min-width: 761px) {
+  .natal-produtos .natal-caixa { grid-column: span 2; }
+  .natal-produtos .natal-caixa .product-image { position: relative; height: calc((100cqw - 36px) / 3 * 1.5 - 3px) !important; }
+  .natal-produtos .natal-caixa .product-image img { position: absolute !important; inset: 0; width: 100%; height: 100% !important; object-fit: cover; object-position: 50% 62%; }
+}
