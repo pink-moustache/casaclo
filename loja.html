@@ -172,6 +172,118 @@
       .sub-collection-heading { flex-wrap: wrap; }
       .sub-collection-heading .meta { margin-left: 0; flex-basis: 100%; }
     }
+
+    /* ---------- Refinamento 11/2026 ---------- */
+    .collection-intro { margin: 56px auto 40px; }
+    .collection-intro h1 { text-wrap: balance; }
+    @media (min-width: 701px) { .collection-intro h1 em { white-space: nowrap; } }
+    .collection-intro p { text-wrap: pretty; }
+
+    /* Atalhos por categoria */
+    .shop-nav {
+      position: sticky;
+      top: var(--header-h, 77px);
+      z-index: 15;
+      margin: 0 0 56px;
+      background: rgba(244, 236, 224, 0.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(42, 24, 19, 0.08);
+    }
+    .shop-nav-inner {
+      width: min(1180px, calc(100% - 36px));
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 0;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .shop-nav-inner::-webkit-scrollbar { display: none; }
+    .shop-nav a {
+      flex: none;
+      padding: 8px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(42, 24, 19, 0.14);
+      font-size: 13px;
+      letter-spacing: 0.02em;
+      color: var(--chocolate);
+      white-space: nowrap;
+      transition: background .2s, color .2s, border-color .2s;
+    }
+    .shop-nav a:hover { border-color: var(--cherry); color: var(--cherry); }
+    .shop-nav a.is-active { background: var(--chocolate); border-color: var(--chocolate); color: var(--cream); }
+    .shop-nav a.shop-nav-cta { border-color: transparent; color: var(--cherry); font-style: italic; font-family: var(--serif); font-size: 15px; }
+    .collection-block, .medida { scroll-margin-top: calc(var(--header-h, 77px) + 72px); }
+
+    /* Ritmo: blocos iguais, separados por um ornamento */
+    .collection-block { margin-bottom: 72px; }
+    .collection-block + .collection-block > .block-header::before {
+      content: "·  ·  ·";
+      display: block;
+      white-space: pre;
+      font-family: var(--serif);
+      font-style: italic;
+      color: var(--cherry);
+      font-size: 22px;
+      letter-spacing: 0.4em;
+      margin-bottom: 28px;
+    }
+    .collection-block > .block-header { margin-bottom: 40px; }
+    .sub-collection { margin-bottom: 48px; }
+
+    /* Cartões: sem a categoria repetida, cartão inteiro clicável */
+    .collection-block .product-topline { justify-content: flex-end; min-height: 22px; }
+    .collection-block .product-topline > span:first-child { display: none; }
+    .collection-block .product-card { position: relative; transition: transform .3s ease, box-shadow .3s ease; }
+    .collection-block .product-card:hover { transform: translateY(-3px); box-shadow: 0 20px 48px rgba(58, 38, 32, 0.11); }
+    .collection-block .product-card .mini-button::after { content: ""; position: absolute; inset: 0; border-radius: inherit; }
+    .collection-block .product-card .mini-button { transition: background .2s, color .2s, border-color .2s; }
+    .collection-block .product-card:hover .mini-button,
+    .collection-block .product-card .mini-button:focus-visible { background: var(--cherry); border-color: var(--cherry); color: var(--cream); }
+    .collection-block .product-card .product-topline { position: absolute; top: 14px; right: 14px; margin: 0; }
+    .collection-block .product-card .tag { background: rgba(251, 246, 236, 0.92); backdrop-filter: blur(6px); }
+
+    /* À medida: foto do lado direito */
+    .medida { grid-template-columns: 1fr 1fr; align-items: center; overflow: hidden; }
+    .medida-foto { margin: 0; align-self: stretch; border-radius: 18px; overflow: hidden; min-height: 280px; }
+    .medida-foto img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    /* Telemóvel: dois bolos por linha, cartões compactos */
+    @media (max-width: 640px) {
+      .collection-intro { margin: 36px auto 28px; }
+      .collection-intro p { font-size: 15px; }
+      .shop-nav { margin-bottom: 36px; }
+      .shop-nav-inner { justify-content: flex-start; width: 100%; padding: 10px 12px; }
+      .shop-nav a { padding: 7px 13px; font-size: 12.5px; }
+      .collection-block { width: calc(100% - 24px); margin-bottom: 56px; }
+      .collection-block > .block-header { margin-bottom: 28px; padding-top: 8px; }
+      .collection-block > .block-header p { font-size: 14px; }
+      .sub-collection { margin-bottom: 36px; }
+      .sub-collection-heading { margin-bottom: 16px; padding-bottom: 10px; gap: 4px 12px; }
+      .sub-collection-heading h3 { font-size: 21px; }
+      .sub-collection-heading .meta { font-size: 10.5px; }
+      .collection-block .product-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+      .collection-block .product-card { border-radius: 16px; }
+      .collection-block .product-image { height: auto; aspect-ratio: 4 / 5; border-radius: 16px 16px 0 0; }
+      .collection-block .product-body { padding: 12px 12px 14px; }
+      .collection-block .product-card .product-topline { top: 8px; right: 8px; font-size: 8.5px; }
+      .collection-block .product-card .tag { padding: 3px 8px; }
+      .collection-block .product-body h3 { font-size: 16px; line-height: 1.15; }
+      .collection-block .product-body p { font-size: 12.5px; line-height: 1.45; margin: 6px 0 10px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+      .collection-block .product-meta { padding-top: 10px; flex-direction: column; align-items: stretch; gap: 8px; }
+      .collection-block .price { font-size: 15px; }
+      .collection-block .mini-button { text-align: center; padding: 8px 10px; background: var(--chocolate); color: var(--cream); border-color: var(--chocolate); }
+      .collection-block .product-card:hover { transform: none; }
+      .collection-block + .collection-block > .block-header::before { margin-bottom: 18px; }
+      /* Número ímpar de bolos: o último ocupa a linha toda, foto ao lado do texto */
+      .collection-block .product-card:last-child:nth-child(odd) { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; }
+      .collection-block .product-card:last-child:nth-child(odd) .product-image { border-radius: 16px 0 0 16px; height: 100%; aspect-ratio: auto; min-height: 220px; position: relative; }
+      .collection-block .product-card:last-child:nth-child(odd) .product-image img { position: absolute; inset: 0; }
+      .collection-block .product-card:last-child:nth-child(odd) .product-topline { left: 8px; right: auto; }
+      .medida { grid-template-columns: 1fr; }
+      .medida-foto { min-height: 220px; aspect-ratio: 4 / 3; }
+    }
   </style>
   <link rel="canonical" href="https://casaclodoces.com/loja.html">
   <meta property="og:url" content="https://casaclodoces.com/loja.html">
@@ -730,10 +842,21 @@
         </p>
       </section>
 
+      <!-- Atalhos por categoria (fixos ao fazer scroll) -->
+      <nav class="shop-nav" aria-label="Categorias da loja">
+        <div class="shop-nav-inner">
+          <a href="#para-casa">Para casa</a>
+          <a href="#celebrar">Celebrar</a>
+          <a href="#cerimonia">Cerimónia</a>
+          <a href="#epocas"><span class="sem-natal">Épocas festivas</span><span class="so-natal">Natal</span></a>
+          <a class="shop-nav-cta" href="#medida">À medida</a>
+        </div>
+      </nav>
+
       <!-- ============================================================
            PARA CASA
            ============================================================ -->
-      <section class="collection-block">
+      <section class="collection-block" id="para-casa">
         <div class="block-header">
           <div class="eyebrow">Para casa</div>
           <h2>O dia-a-dia, com cuidado.</h2>
@@ -826,7 +949,7 @@
       <!-- ============================================================
            PARA CELEBRAR
            ============================================================ -->
-      <section class="collection-block" style="background: var(--paper); border-radius: var(--radius); padding: 56px clamp(20px, 4vw, 56px);">
+      <section class="collection-block" id="celebrar">
         <div class="block-header">
           <div class="eyebrow">Para celebrar</div>
           <h2>Os dias que se guardam.</h2>
@@ -958,7 +1081,7 @@
       <!-- ============================================================
            PEÇAS ESPECIAIS — Cerimónia
            ============================================================ -->
-      <section class="collection-block">
+      <section class="collection-block" id="cerimonia">
         <div class="block-header">
           <div class="eyebrow">Peças especiais</div>
           <h2>Cerimónia.</h2>
@@ -1010,7 +1133,7 @@
       <!-- ============================================================
            ÉPOCAS FESTIVAS — Sazonais (07)
            ============================================================ -->
-      <section class="collection-block">
+      <section class="collection-block" id="epocas">
         <div class="block-header">
           <div class="eyebrow">Épocas festivas</div>
           <h2>Para as datas do calendário.</h2>
@@ -1085,7 +1208,7 @@
       </section>
 
       <!-- CTA FINAL -->
-      <section class="section newsletter">
+      <section class="section newsletter medida" id="medida">
         <div>
           <div class="eyebrow">Encomendas personalizadas</div>
           <h2>Algo à medida?</h2>
@@ -1095,6 +1218,7 @@
             <a class="button" href="https://wa.me/351966845351" target="_blank" rel="noopener">WhatsApp</a>
           </div>
         </div>
+        <figure class="medida-foto"><img width="1254" height="1254" loading="lazy" src="images/bolo-flores-abelhas.webp" alt="Bolo por medida da Casa Clo, com flores e pequenas abelhas"></figure>
       </section>
 
     </main>

@@ -189,6 +189,9 @@ a {
 
 .page {
   overflow: hidden;
+  /* clip em vez de hidden: corta o que sai dos lados sem impedir
+     o cabeçalho (e os atalhos da loja) de ficarem fixos ao fazer scroll */
+  overflow: clip;
 }
 
 .top-note {
@@ -1361,13 +1364,14 @@ footer {
   gap: 14px;
 }
 .footer-legal a {
-  color: var(--cocoa);
+  color: rgba(247, 241, 234, 0.72);
   text-decoration: underline;
-  text-decoration-color: rgba(42, 24, 19, 0.2);
+  text-decoration-color: rgba(247, 241, 234, 0.25);
   text-underline-offset: 3px;
 }
 .footer-legal a:hover {
-  color: var(--cherry);
+  color: var(--cream);
+  text-decoration-color: var(--rose);
 }
 
 /* ============================================================
