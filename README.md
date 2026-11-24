@@ -110,8 +110,9 @@ O site está no Netlify, ligado a este repositório. Para actualizar produção:
 
 - [ ] Confirmar handle do Instagram
 - [ ] `clo.html` — confirmar nome da escola/curso da Clo (TODO no próprio ficheiro)
-- [ ] Páginas legais: preencher `[Nome legal]`, `[NIF]`, `[morada]` e rever
-      com profissional antes de considerá-las finais
+- [ ] Páginas legais (termos, privacidade): já sem marcadores de rascunho (11/2026).
+      Falta acrescentar nome legal, NIF e morada fiscal quando a dona os enviar,
+      e rever com profissional
 - [ ] Criar conta da Casa Clo no livroreclamacoes.pt (link já no footer)
 - [ ] Imagens em WebP/AVIF numa 2.ª iteração de performance
 
