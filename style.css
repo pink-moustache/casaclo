@@ -1962,8 +1962,14 @@ html.natal .natal-palco .hero-actions .button.primary { background: var(--ouro);
 html.natal .natal-especial .hero-actions .button.primary { background: var(--noite); border-color: var(--noite); color: var(--ouro-claro); }
 .natal-qtd-destaque { border-color: rgba(212, 175, 106, 0.7) !important; background: #FBF3E2 !important; }
 .natal-qtd-destaque small { display: block; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: #9C7A3C; }
+.natal-especial-inverso { grid-template-columns: 1.05fr 0.95fr; }
+.natal-especial-inverso .natal-especial-img { order: 2; }
+.natal-especial-inverso .natal-especial-img img { background: #5A0F1C; }
+.natal-especial-inverso .natal-especial-img .natal-selo { right: auto; left: -18px; transform: rotate(-8deg); }
 @media (max-width: 860px) {
   .natal-especial { grid-template-columns: 1fr; gap: 32px; }
+  .natal-especial-inverso .natal-especial-img { order: 0; }
+  .natal-especial-inverso .natal-especial-img .natal-selo { left: 10px; }
   .natal-especial-img .natal-selo { right: 10px; width: 100px; height: 100px; }
 }
 
