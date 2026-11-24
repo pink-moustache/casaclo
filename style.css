@@ -1369,3 +1369,204 @@ footer {
 .footer-legal a:hover {
   color: var(--cherry);
 }
+
+/* ============================================================
+   NATAL — tema temporário
+   Tudo o que é de Natal vive aqui, debaixo de html.natal.
+   Quem liga/desliga é natal.js (uma linha: modo / datas).
+   Para apagar de vez depois da época: remover este bloco,
+   natal.js, natal.html e os elementos .so-natal das páginas.
+   ============================================================ */
+
+:root {
+  --pine: #2F4A3A;
+  --pine-soft: #DCE3DA;
+  --gold: #B8935A;
+}
+
+/* Elementos que só aparecem com/sem Natal */
+.so-natal { display: none !important; }
+html.natal .so-natal { display: revert !important; }
+html.natal .sem-natal { display: none !important; }
+html.natal-fechado .natal-aberto { display: none !important; }
+.natal-fechado-msg { display: none; }
+html.natal-fechado .natal-fechado-msg { display: revert; }
+
+/* Faixa de topo: vermelho-cereja profundo com estrela */
+html.natal .top-note {
+  background: var(--cherry-deep);
+}
+html.natal .top-note a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: rgba(251, 246, 236, 0.45);
+}
+html.natal .top-note em {
+  color: var(--champagne);
+}
+
+/* Pó de açúcar: pontilhado muito leve no fundo */
+html.natal body {
+  background-color: var(--cream);
+  background-image:
+    radial-gradient(rgba(255, 255, 255, 0.9) 1px, transparent 1.4px),
+    radial-gradient(rgba(216, 196, 174, 0.55) 1px, transparent 1.4px);
+  background-size: 46px 46px, 73px 73px;
+  background-position: 0 0, 23px 31px;
+}
+
+/* Fio de Natal por baixo do cabeçalho: cereja · pinho · champanhe */
+html.natal header {
+  border-bottom: 0;
+}
+html.natal header::after {
+  content: "";
+  display: block;
+  height: 3px;
+  background: repeating-linear-gradient(90deg,
+    var(--cherry) 0 28px, transparent 28px 34px,
+    var(--pine) 34px 62px, transparent 62px 68px,
+    var(--champagne) 68px 96px, transparent 96px 102px);
+  opacity: 0.75;
+}
+
+/* Estrela discreta junto ao nome */
+html.natal .brand strong::after {
+  content: "✦";
+  font-size: 12px;
+  color: var(--gold);
+  margin-left: 6px;
+  vertical-align: super;
+  font-style: normal;
+}
+
+/* Link "Natal" no menu */
+.menu a.natal-link {
+  color: var(--cherry);
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 15px;
+}
+
+/* Botões principais em cereja durante a época */
+html.natal .hero-actions .button.primary,
+html.natal .button.primary {
+  background: var(--cherry);
+  border-color: var(--cherry);
+  color: var(--paper);
+}
+
+/* Faixa/convite de Natal (homepage e loja) */
+.natal-banner {
+  width: min(1180px, calc(100% - 36px));
+  margin: 0 auto 96px;
+  border-radius: 24px;
+  background: var(--pine);
+  color: var(--paper);
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  box-shadow: var(--shadow);
+}
+html.natal .natal-banner.so-natal { display: grid !important; }
+.natal-banner .natal-banner-text {
+  padding: clamp(32px, 5vw, 56px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.natal-banner .eyebrow { color: var(--champagne); }
+.natal-banner h2 { color: var(--paper); }
+.natal-banner h2 em { color: var(--champagne); font-style: italic; }
+.natal-banner p { color: rgba(251, 246, 236, 0.82); margin: 18px 0 0; max-width: 460px; }
+.natal-banner .hero-actions .button.primary {
+  background: var(--paper);
+  color: var(--chocolate);
+  border-color: var(--paper);
+}
+.natal-banner .button.link { color: var(--champagne); border-color: var(--champagne); }
+.natal-banner .natal-banner-img { min-height: 320px; }
+.natal-banner .natal-banner-img img { width: 100%; height: 100%; object-fit: cover; }
+@media (max-width: 760px) {
+  .natal-banner { grid-template-columns: 1fr; }
+  .natal-banner .natal-banner-img { min-height: 260px; order: -1; }
+}
+
+/* ---------- Página natal.html ---------- */
+.natal-hero {
+  width: min(1180px, calc(100% - 36px));
+  margin: 64px auto 72px;
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 48px;
+  align-items: center;
+}
+.natal-hero-img img {
+  width: 100%;
+  height: 520px;
+  object-fit: cover;
+  border-radius: 24px;
+}
+.natal-datas {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  margin-top: 32px;
+  background: rgba(42, 24, 19, 0.12);
+  border: 1px solid rgba(42, 24, 19, 0.12);
+  border-radius: 16px;
+  overflow: hidden;
+}
+.natal-datas div { background: var(--paper); padding: 16px 18px; }
+.natal-datas dt {
+  font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--cocoa);
+}
+.natal-datas dd {
+  margin: 6px 0 0; font-family: var(--serif); font-size: 19px; line-height: 1.2; color: var(--cherry-deep);
+}
+.natal-steps { margin-bottom: 96px; }
+.natal-steps .step span { border-color: rgba(154, 31, 46, 0.35); color: var(--cherry); }
+
+.natal-produtos { margin-bottom: 96px; }
+.natal-produtos .product-image { height: 320px; }
+.natal-produtos .tag { border-color: rgba(47, 74, 58, 0.3); color: var(--pine); }
+
+/* Quantidades no formulário de Natal */
+.natal-qtd {
+  display: grid;
+  gap: 8px;
+  margin-top: 8px;
+}
+.natal-qtd .linha {
+  display: grid;
+  grid-template-columns: 1fr auto 84px;
+  gap: 12px;
+  align-items: center;
+  padding: 10px 14px;
+  border: 1px solid rgba(58, 38, 32, 0.10);
+  border-radius: 14px;
+  background: rgba(247, 241, 234, 0.55);
+}
+.natal-qtd .linha label {
+  font-size: 14px; letter-spacing: 0; text-transform: none; color: var(--chocolate);
+}
+.natal-qtd .linha .price { font-size: 15px; color: var(--cocoa); }
+.natal-qtd .linha input { padding: 8px 10px; text-align: center; }
+
+.natal-aviso {
+  background: var(--pine-soft);
+  border-radius: 16px;
+  padding: 18px 20px;
+  font-size: 14px;
+  color: var(--pine);
+}
+.natal-aviso strong { color: var(--chocolate); }
+
+@media (max-width: 860px) {
+  .natal-hero { grid-template-columns: 1fr; margin-top: 36px; }
+  .natal-hero-img img { height: 380px; }
+  .natal-datas { grid-template-columns: 1fr; }
+}
+
+/* Placeholders por preencher (só visíveis para nós até a Clo confirmar) */
+.ph { font-weight: inherit; background: rgba(184, 147, 90, 0.18); border-radius: 4px; padding: 0 4px; }

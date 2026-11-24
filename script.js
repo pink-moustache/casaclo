@@ -36,6 +36,15 @@ document.addEventListener('DOMContentLoaded', function () {
     yearEl.textContent = new Date().getFullYear();
   }
 
+  /* ---------- 2b. Produto vindo da loja ----------
+     Os botões "Encomendar"/"Orçamento" da loja abrem index.html?produto=…
+     Preenche o campo Produto para a Clo saber de onde vem o pedido. */
+  var produtoEl = document.getElementById('produto');
+  if (produtoEl && window.URLSearchParams) {
+    var produto = new URLSearchParams(window.location.search).get('produto');
+    if (produto) produtoEl.value = produto.slice(0, 80);
+  }
+
   /* ---------- 3. Formulários → WhatsApp ----------
      Qualquer <form data-whatsapp="Título"> é enviado pelo WhatsApp da Clo:
      ao submeter, abre o WhatsApp com o pedido já escrito (um campo por linha,
