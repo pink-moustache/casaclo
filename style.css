@@ -1988,3 +1988,14 @@ html.natal .natal-especial .hero-actions .button.primary { background: var(--noi
 @media (max-width: 700px) { .loja-especial { grid-template-columns: 1fr; } .loja-especial img { height: 320px; } }
 html.natal .loja-especial.so-natal { display: grid !important; }
 html.natal .natal-banner .hero-actions .button.primary { background: var(--ouro); border-color: var(--ouro); color: var(--noite-funda); }
+
+/* Aldeia de Casinhas: cartão largo na página de Natal */
+.natal-produtos .natal-aldeia { grid-column: 1 / -1; display: grid; grid-template-columns: 1.6fr 1fr; }
+.natal-produtos .natal-aldeia .product-image { height: 100%; min-height: 380px; border-radius: 24px 0 0 24px; }
+.natal-produtos .natal-aldeia .product-body { display: flex; flex-direction: column; justify-content: center; padding: 36px; }
+.natal-produtos .natal-aldeia h3 { font-size: clamp(26px, 2.6vw, 34px); }
+@media (max-width: 860px) {
+  .natal-produtos .natal-aldeia { grid-template-columns: 1fr; }
+  .natal-produtos .natal-aldeia .product-image { min-height: 0; height: 240px; border-radius: 24px 24px 0 0; }
+  .natal-produtos .natal-aldeia .product-body { padding: 24px; }
+}
