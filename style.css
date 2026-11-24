@@ -189,6 +189,9 @@ a {
 
 .page {
   overflow: hidden;
+  /* clip em vez de hidden: corta o que sai dos lados sem impedir
+     o cabeçalho (e os atalhos da loja) de ficarem fixos ao fazer scroll */
+  overflow: clip;
 }
 
 .top-note {
@@ -1361,13 +1364,14 @@ footer {
   gap: 14px;
 }
 .footer-legal a {
-  color: var(--cocoa);
+  color: rgba(247, 241, 234, 0.72);
   text-decoration: underline;
-  text-decoration-color: rgba(42, 24, 19, 0.2);
+  text-decoration-color: rgba(247, 241, 234, 0.25);
   text-underline-offset: 3px;
 }
 .footer-legal a:hover {
-  color: var(--cherry);
+  color: var(--cream);
+  text-decoration-color: var(--rose);
 }
 
 /* ============================================================
@@ -1570,3 +1574,137 @@ html.natal .natal-banner.so-natal { display: grid !important; }
 
 /* Placeholders por preencher (só visíveis para nós até a Clo confirmar) */
 .ph { font-weight: inherit; background: rgba(184, 147, 90, 0.18); border-radius: 4px; padding: 0 4px; }
+
+
+/* ---------- Botão flutuante de WhatsApp (criado pelo script.js) ---------- */
+.whatsapp-fab {
+  position: fixed;
+  right: max(16px, env(safe-area-inset-right));
+  bottom: max(16px, env(safe-area-inset-bottom));
+  z-index: 30;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 18px 13px 15px;
+  border-radius: 999px;
+  background: var(--cherry);
+  color: var(--paper);
+  border: 1px solid rgba(251, 246, 236, 0.35);
+  font-family: var(--sans);
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  box-shadow: 0 10px 28px rgba(42, 24, 19, 0.22);
+  transition: transform 0.25s ease, opacity 0.25s ease, background 0.25s ease;
+}
+.whatsapp-fab:hover,
+.whatsapp-fab:focus-visible { background: var(--cherry-deep); transform: translateY(-2px); }
+.whatsapp-fab:focus-visible { outline: 2px solid var(--rose); outline-offset: 3px; }
+.whatsapp-fab.is-hidden { opacity: 0; transform: translateY(12px); pointer-events: none; }
+.whatsapp-fab svg { flex: none; }
+
+@media (max-width: 860px) {
+  /* No telemóvel fica só o ícone, mais pequeno, para não tapar conteúdo */
+  .whatsapp-fab { padding: 13px; }
+  .whatsapp-fab-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .whatsapp-fab { transition: none; }
+}
+
+@media print {
+  .whatsapp-fab { display: none; }
+}
+
+/* ============================================================
+   Revisão de design 11/2026 — ajustes transversais a todas as páginas
+   ============================================================ */
+
+/* Imagens: a altura vem da largura (os atributos width/height só servem
+   para reservar espaço). Sem isto, imagens com aspect-ratio ficavam com
+   1600px de altura (galeria de Eventos). */
+img { height: auto; }
+
+/* Fotos ao lado do texto: altura limitada, para não ocuparem um ecrã e meio */
+.split .image-frame,
+.split .image-frame img { max-height: 640px; }
+.split .image-frame.small,
+.split .image-frame.small img { max-height: 560px; }
+
+/* Painéis de fundo claro (Eventos, Peças especiais, A Clo): respiro em cima
+   e em baixo, cantos iguais aos cartões, e distância da secção seguinte */
+.panel {
+  background: var(--paper);
+  border-radius: 24px;
+  padding: clamp(40px, 5vw, 64px) 0;
+  margin-bottom: 96px;
+}
+.panel .section-heading { margin-bottom: 28px; }
+
+/* Grelhas com 5 cartões: uma linha só, sem cartão órfão */
+@media (min-width: 761px) {
+  .steps:has(> :nth-child(5):last-child) { grid-template-columns: repeat(5, 1fr); }
+}
+
+/* Página inicial: caminhos "Para casa" / "Para celebrar" com foto nítida
+   e texto legível (antes a foto ficava esbatida por um véu branco) */
+.path-card img { opacity: 1; }
+.path-card:hover img { opacity: 1; }
+.path-card:after {
+  background: linear-gradient(180deg, rgba(42, 24, 19, 0) 35%, rgba(42, 24, 19, 0.72) 100%);
+}
+
+/* Página inicial: galeria sem buraco no fim e legendas discretas */
+.gallery-grid figure:first-child { grid-row: span 3; }
+.gallery-grid figure:nth-child(5) { grid-column: span 2; }
+.gallery-grid figcaption {
+  right: auto;
+  padding: 6px 14px;
+}
+
+/* Página inicial: texto de abertura mais legível */
+.hero h1 em {
+  font-size: 0.34em;
+  font-weight: 400;
+}
+.hero-lead {
+  font-family: var(--sans);
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.65;
+  max-width: 420px;
+}
+
+/* Cartão final só com texto (Eventos, Peças especiais): centrado, sem metade vazia */
+.newsletter > :only-child {
+  grid-column: 1 / -1;
+  max-width: 620px;
+  margin: 0 auto;
+  text-align: center;
+}
+.newsletter > :only-child > div[style*="flex"] { justify-content: center; }
+
+@media (max-width: 760px) {
+  .split .image-frame,
+  .split .image-frame img { min-height: 0; max-height: 460px; aspect-ratio: 4 / 5; }
+  .panel { padding: 36px 0; margin-bottom: 64px; border-radius: 18px; }
+  .gallery-grid figure:first-child { grid-row: auto; }
+  .gallery-grid figure:nth-child(5) { grid-column: 1 / -1; }
+}
+
+@media (max-width: 640px) {
+  /* Margens laterais iguais às do cabeçalho */
+  .hero { width: min(100% - 32px, 1240px); }
+  .hero h1 { font-size: clamp(44px, 12vw, 56px); }
+  .hero h1 em { font-size: 0.42em; margin-top: 0.8em; }
+  .hero-lead { font-size: 15px; }
+  .hero-eyebrow-row { margin-bottom: 22px; }
+  .path-card { min-height: 320px; }
+  .gallery-grid { grid-auto-rows: 160px; gap: 10px; }
+  .gallery-grid figcaption { left: 10px; bottom: 10px; font-size: 10px; }
+  .steps { gap: 10px; }
+  .step { padding: 20px 20px 22px; }
+}

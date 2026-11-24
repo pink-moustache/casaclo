@@ -67,16 +67,19 @@
       display: grid;
       gap: 14px;
     }
+    /* Travessão à esquerda e texto corrido: sem grid no <li>, senão cada
+       pedaço de texto e cada <strong> vira uma célula e sobrepõem-se */
     .ocasioes-list li {
-      display: grid;
-      grid-template-columns: 28px 1fr;
-      gap: 14px;
-      align-items: start;
+      position: relative;
+      padding-left: 42px;
       font-size: 15px;
       line-height: 1.55;
     }
     .ocasioes-list li::before {
       content: "—";
+      position: absolute;
+      left: 0;
+      top: 0.05em;
       color: var(--cherry);
       font-family: var(--serif);
       font-style: italic;
@@ -84,6 +87,8 @@
       line-height: 1;
     }
   </style>
+  <link rel="canonical" href="https://casaclodoces.com/pecas.html">
+  <meta property="og:url" content="https://casaclodoces.com/pecas.html">
 </head>
 <body>
   <div class="page">
@@ -133,7 +138,7 @@
       </section>
 
       <!-- TIPOS DE PEÇAS -->
-      <section class="section" style="background: var(--paper);">
+      <section class="section panel">
         <div style="width: min(1100px, calc(100% - 36px)); margin: 0 auto;">
           <div class="section-heading">
             <div>
@@ -291,6 +296,7 @@
       <div class="footer-bottom">
         <span>© <span id="year"></span> Casa Clo. Todos os direitos reservados.</span>
         <div class="footer-legal">
+          <a href="faq.html">Perguntas frequentes</a>
           <a href="termos.html">Termos e condições</a>
           <a href="privacidade.html">Privacidade</a>
           <a href="info-alimentar.html">Informação alimentar</a>
