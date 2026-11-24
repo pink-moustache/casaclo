@@ -30,6 +30,38 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  /* ---------- 1b. Atalhos por categoria da loja (.shop-nav) ----------
+     Fica fixo por baixo do cabeçalho e marca a categoria que está no ecrã. */
+  var header = document.querySelector('header');
+  function alturaHeader() {
+    if (header) document.documentElement.style.setProperty('--header-h', header.offsetHeight + 'px');
+  }
+  alturaHeader();
+  window.addEventListener('resize', alturaHeader);
+
+  var shopNav = document.querySelector('.shop-nav');
+  if (shopNav && 'IntersectionObserver' in window) {
+    var links = {};
+    shopNav.querySelectorAll('a[href^="#"]').forEach(function (a) { links[a.getAttribute('href').slice(1)] = a; });
+    var visiveis = {};
+    var obs = new IntersectionObserver(function (entradas) {
+      entradas.forEach(function (e) { visiveis[e.target.id] = e.isIntersecting; });
+      var ativo = null;
+      Object.keys(links).forEach(function (id) { if (!ativo && visiveis[id]) ativo = id; });
+      Object.keys(links).forEach(function (id) {
+        links[id].classList.toggle('is-active', id === ativo);
+        var faixa = links[id].parentNode;
+        if (id === ativo && faixa.scrollWidth > faixa.clientWidth) {
+          faixa.scrollLeft = links[id].offsetLeft - (faixa.clientWidth - links[id].offsetWidth) / 2;
+        }
+      });
+    }, { rootMargin: '-30% 0px -60% 0px' });
+    Object.keys(links).forEach(function (id) {
+      var alvo = document.getElementById(id);
+      if (alvo) obs.observe(alvo);
+    });
+  }
+
   /* ---------- 2. Ano dinâmico no footer ---------- */
   var yearEl = document.getElementById('year');
   if (yearEl) {
