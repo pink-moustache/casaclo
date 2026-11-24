@@ -8,6 +8,11 @@
 
 document.addEventListener('DOMContentLoaded', function () {
 
+  /* Para onde vão os pedidos dos dois formulários (encomenda e Natal).
+     Hoje: Netlify Forms ("/"). Na mudança para a O CLOUD, trocar só esta
+     linha pelo endereço da gestão. Se o envio falhar, abre-se o e-mail. */
+  var ENDPOINT_PEDIDOS = '/';
+
   /* ---------- 1. Menu mobile ---------- */
   var toggle = document.getElementById('menuToggle');
   var menu = document.getElementById('menu');
@@ -95,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function () {
       if (button) button.disabled = true;
       showStatus('A enviar o pedido…');
 
-      fetch('/', {
+      fetch(ENDPOINT_PEDIDOS, {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: body.toString()
@@ -173,7 +178,7 @@ document.addEventListener('DOMContentLoaded', function () {
       if (natalButton) natalButton.disabled = true;
       natalStatusMsg('A enviar a reserva…');
 
-      fetch('/', {
+      fetch(ENDPOINT_PEDIDOS, {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: body.toString()
