@@ -24,7 +24,7 @@ casaclo/
 ├── style.css         ← estilos (inclui @font-face auto-hospedadas)
 ├── script.js         ← menu mobile + envio do formulário (mailto) + ano
 ├── fonts/            ← 13 ficheiros .woff2 (Cormorant, Fraunces, Inter Tight, Italiana)
-├── images/           ← 41 imagens dos doces
+├── images/           ← imagens dos doces (o site usa .webp; os .jpg originais ficam guardados)
 ├── gestao/           ← plataforma de gestão (Node+PostgreSQL, Decima Cloud) — ver gestao/README.md
 ├── favicon.ico
 ├── robots.txt
