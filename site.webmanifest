@@ -1,0 +1,11 @@
+{
+  "name": "Casa Clo",
+  "short_name": "Casa Clo",
+  "icons": [
+    { "src": "/images/icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/images/icons/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ],
+  "theme_color": "#F4ECE0",
+  "background_color": "#F4ECE0",
+  "display": "browser"
+}

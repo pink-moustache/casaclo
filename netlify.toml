@@ -42,6 +42,12 @@
     Content-Type = "text/csv; charset=utf-8"
     Cache-Control = "public, max-age=0, must-revalidate"
 
+# Manifesto do site (ícones para o ecrã inicial do telemóvel)
+[[headers]]
+  for = "/site.webmanifest"
+  [headers.values]
+    Content-Type = "application/manifest+json; charset=utf-8"
+
 # A plataforma de gestão (/gestao) vive na DECIMA CLOUD (serviço próprio
 # Node+PostgreSQL) — nada dela é servido daqui; links antigos caem no site.
 [[redirects]]
