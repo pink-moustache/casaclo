@@ -1570,3 +1570,46 @@ html.natal .natal-banner.so-natal { display: grid !important; }
 
 /* Placeholders por preencher (só visíveis para nós até a Clo confirmar) */
 .ph { font-weight: inherit; background: rgba(184, 147, 90, 0.18); border-radius: 4px; padding: 0 4px; }
+
+
+/* ---------- Botão flutuante de WhatsApp (criado pelo script.js) ---------- */
+.whatsapp-fab {
+  position: fixed;
+  right: max(16px, env(safe-area-inset-right));
+  bottom: max(16px, env(safe-area-inset-bottom));
+  z-index: 30;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 18px 13px 15px;
+  border-radius: 999px;
+  background: var(--cherry);
+  color: var(--paper);
+  border: 1px solid rgba(251, 246, 236, 0.35);
+  font-family: var(--sans);
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  box-shadow: 0 10px 28px rgba(42, 24, 19, 0.22);
+  transition: transform 0.25s ease, opacity 0.25s ease, background 0.25s ease;
+}
+.whatsapp-fab:hover,
+.whatsapp-fab:focus-visible { background: var(--cherry-deep); transform: translateY(-2px); }
+.whatsapp-fab:focus-visible { outline: 2px solid var(--rose); outline-offset: 3px; }
+.whatsapp-fab.is-hidden { opacity: 0; transform: translateY(12px); pointer-events: none; }
+.whatsapp-fab svg { flex: none; }
+
+@media (max-width: 860px) {
+  /* No telemóvel fica só o ícone, mais pequeno, para não tapar conteúdo */
+  .whatsapp-fab { padding: 13px; }
+  .whatsapp-fab-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .whatsapp-fab { transition: none; }
+}
+
+@media print {
+  .whatsapp-fab { display: none; }
+}
