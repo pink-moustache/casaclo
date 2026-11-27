@@ -23,8 +23,8 @@
     antecedenciaPadrao: 3,
     entrega: [
       { valor: 'recolha', texto: 'Recolha (local combinado com a Clo)' },
-      { valor: 'lisboa', texto: 'Entrega em Lisboa (taxa a confirmar)' },
-      { valor: 'margem-sul', texto: 'Entrega na Margem Sul (taxa a confirmar)' }
+      { valor: 'lisboa', texto: 'Entrega em Lisboa (5€, grátis acima de 100€)' },
+      { valor: 'margem-sul', texto: 'Entrega na Margem Sul (8€, grátis acima de 100€)' }
     ],
     maxQtd: 50
   };
@@ -283,7 +283,7 @@
       '<div class="cart-total"><span>Total estimado</span><strong>' + (t.soma ? 'desde ' + euros(t.soma) : 'a confirmar') + '</strong></div>' +
       (t.porConfirmar && t.soma ? '<p class="cart-total-extra">+ ' + t.porConfirmar + (t.porConfirmar === 1 ? ' produto' : ' produtos') + ' com preço a confirmar</p>' : '') +
       '<p class="cart-ajuda">Os preços são "desde": o valor final depende do tamanho e dos detalhes, e a Clo confirma-o antes do pagamento.' +
-      ' Entrega com taxa a confirmar.</p>' +
+      ' Entrega: 5€ em Lisboa, 8€ na Margem Sul, grátis acima de 100€.</p>' +
       '<button type="button" class="button primary cart-seguinte">Continuar</button>';
     rodape.querySelector('.cart-seguinte').addEventListener('click', function () { passo('dados'); });
   }
