@@ -2181,3 +2181,15 @@ button.cart-pill { font: inherit; font-size: 12px; color: var(--chocolate); curs
 }
 @media print { .cart-mini, .cart-toast, .cart-painel, .cart-fundo { display: none !important; } }
 .cart-total-extra { margin: -6px 0 0; text-align: right; font-size: 12px; color: var(--cocoa); }
+
+/* Loja, Sazonais: Rua de Natal (aldeia de casinhas) sozinha numa linha, em destaque (pedido da Inês, 27/11).
+   Foto ao comprido à esquerda, inteira (proporção 3:2 da própria foto), texto à direita. */
+html.natal .collection-block .product-grid .cartao-destaque { grid-column: 1 / -1; display: grid !important; grid-template-columns: 1.6fr 1fr; }
+.collection-block .product-grid .cartao-destaque .product-image { height: auto !important; aspect-ratio: 3 / 2 !important; border-radius: 24px 0 0 24px; }
+.collection-block .product-grid .cartao-destaque .product-body { display: flex; flex-direction: column; justify-content: center; padding: 36px; }
+.collection-block .product-grid .cartao-destaque h3 { font-size: clamp(26px, 2.6vw, 34px); }
+@media (max-width: 760px) {
+  html.natal .collection-block .product-grid .cartao-destaque { grid-template-columns: 1fr; }
+  .collection-block .product-grid .cartao-destaque .product-image { border-radius: 24px 24px 0 0; }
+  .collection-block .product-grid .cartao-destaque .product-body { padding: 22px; }
+}
