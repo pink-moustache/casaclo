@@ -2193,3 +2193,137 @@ html.natal .collection-block .product-grid .cartao-destaque { grid-column: 1 / -
   .collection-block .product-grid .cartao-destaque .product-image { border-radius: 24px 24px 0 0; }
   .collection-block .product-grid .cartao-destaque .product-body { padding: 22px; }
 }
+
+/* ============================================================
+   Reserva de Natal 11/2026 — lista com fotos, passo − / +,
+   resumo e caixa "Como funciona" a azul-noite e dourado
+   ============================================================ */
+#encomendar { align-items: start; }
+#encomendar > div:first-child { position: sticky; top: 120px; }
+
+.reserva-info {
+  margin-top: 28px;
+  background: var(--noite);
+  color: rgba(251, 246, 236, 0.78);
+  border-radius: 20px;
+  padding: 26px 26px 22px;
+  border: 1px solid rgba(212, 175, 106, 0.45);
+  box-shadow: inset 0 0 0 4px var(--noite), inset 0 0 0 5px rgba(212, 175, 106, 0.25);
+}
+.reserva-info-titulo { margin: 0 0 14px !important; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ouro) !important; }
+.reserva-info dl { margin: 0; display: grid; }
+.reserva-info dl > div { display: grid; grid-template-columns: 84px 1fr; gap: 14px; padding: 14px 0; border-top: 1px dashed rgba(212, 175, 106, 0.35); }
+.reserva-info dt { font-family: var(--serif); font-style: italic; font-size: 18px; color: var(--ouro-claro); }
+.reserva-info dd { margin: 0; font-size: 14px; line-height: 1.55; }
+.reserva-info dd strong { display: block; color: var(--paper); font-weight: 500; font-size: 15px; }
+.reserva-info .ph { background: rgba(212, 175, 106, 0.3); color: var(--paper); }
+.reserva-mbway { color: var(--ouro-claro); font-weight: 600; white-space: nowrap; border-bottom: 1px solid rgba(212, 175, 106, 0.6); }
+.reserva-info-prazo { margin: 6px 0 0 !important; padding-top: 14px; border-top: 1px dashed rgba(212, 175, 106, 0.35); font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ouro) !important; }
+
+/* Lista de doces */
+.natal-qtd { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.natal-qtd-grupo {
+  grid-column: 1 / -1;
+  margin: 14px 0 0 !important;
+  display: flex; align-items: center; gap: 12px;
+  font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: #9C7A3C !important;
+}
+.natal-qtd-grupo:first-child { margin-top: 0 !important; }
+.natal-qtd-grupo::after { content: ""; flex: 1; height: 1px; background: rgba(212, 175, 106, 0.45); }
+
+.natal-qtd .linha {
+  grid-template-columns: 1fr auto;
+  grid-template-areas: "nome passo" "preco passo";
+  column-gap: 12px; row-gap: 2px;
+  padding: 10px 10px 10px 12px;
+  background: #FFFDF8;
+  border: 1px solid rgba(58, 38, 32, 0.10);
+  border-radius: 16px;
+  transition: border-color .2s, box-shadow .2s, background .2s;
+}
+.natal-qtd .linha:has(.linha-foto) {
+  grid-template-columns: 64px 1fr auto;
+  grid-template-areas: "foto nome nome" "foto preco passo";
+  row-gap: 6px;
+}
+.natal-qtd .linha:has(.linha-foto) .price { align-self: center; }
+.natal-qtd .linha label { grid-area: nome; align-self: end; font-size: 14px; line-height: 1.3; color: var(--chocolate); cursor: default; }
+.natal-qtd .linha .price { grid-area: preco; align-self: start; font-family: var(--serif); font-size: 15px; color: #9C7A3C; white-space: nowrap; }
+.natal-qtd .linha > input, .natal-qtd .linha .linha-passo { grid-area: passo; }
+
+.linha-foto {
+  grid-area: foto;
+  width: 64px; height: 64px;
+  border-radius: 12px;
+  background: #F4EADB;
+  display: grid; place-items: center;
+  overflow: hidden;
+}
+/* foto inteira, nunca cortada */
+.linha-foto img { width: 100%; height: 100%; object-fit: contain; }
+
+.linha-passo {
+  display: inline-grid; grid-template-columns: 30px 34px 30px; align-items: center;
+  border: 1px solid rgba(58, 38, 32, 0.14); border-radius: 999px; background: #fff; overflow: hidden;
+}
+.linha-passo button {
+  height: 34px; border: 0; background: transparent; cursor: pointer;
+  font-size: 17px; line-height: 1; color: var(--noite);
+}
+.linha-passo button:hover { background: rgba(212, 175, 106, 0.18); }
+.linha-passo button:focus-visible { outline: 2px solid var(--ouro); outline-offset: -2px; }
+.natal-qtd .linha .linha-passo input {
+  width: 100%; padding: 0; border: 0; background: transparent; box-shadow: none;
+  text-align: center; font-weight: 600; font-size: 15px; color: var(--chocolate);
+  -moz-appearance: textfield; appearance: textfield;
+}
+.linha-passo input::-webkit-outer-spin-button,
+.linha-passo input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+
+.natal-qtd .linha.escolhida { border-color: rgba(212, 175, 106, 0.9); box-shadow: 0 0 0 3px rgba(212, 175, 106, 0.18); }
+.natal-qtd .linha.escolhida .linha-passo { background: var(--noite); border-color: var(--noite); }
+.natal-qtd .linha.escolhida .linha-passo button,
+.natal-qtd .linha.escolhida .linha-passo input { color: var(--ouro-claro); }
+
+/* Especiais 2026: cartões azul-noite */
+.natal-qtd .linha.natal-qtd-destaque { background: var(--noite) !important; border-color: rgba(212, 175, 106, 0.6) !important; }
+.natal-qtd .linha.natal-qtd-destaque label { color: var(--paper); font-family: var(--serif); font-size: 17px; }
+.natal-qtd .linha.natal-qtd-destaque small { color: var(--ouro); margin-top: 3px; }
+.natal-qtd .linha.natal-qtd-destaque .price { color: var(--ouro-claro); }
+.natal-qtd .linha.natal-qtd-destaque .linha-foto { background: var(--noite-funda); }
+.natal-qtd .linha.natal-qtd-destaque .linha-passo { background: transparent; border-color: rgba(212, 175, 106, 0.6); }
+.natal-qtd .linha.natal-qtd-destaque .linha-passo button,
+.natal-qtd .linha.natal-qtd-destaque .linha-passo input { color: var(--ouro-claro); }
+.natal-qtd .linha.natal-qtd-destaque.escolhida .linha-passo { background: var(--ouro); border-color: var(--ouro); }
+.natal-qtd .linha.natal-qtd-destaque.escolhida .linha-passo button,
+.natal-qtd .linha.natal-qtd-destaque.escolhida .linha-passo input { color: var(--noite-funda); }
+
+/* Resumo que acompanha a lista */
+.natal-resumo {
+  position: sticky; bottom: 12px; z-index: 2;
+  margin-top: 12px;
+  display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 4px 16px;
+  padding: 14px 18px;
+  border-radius: 16px;
+  background: var(--noite); color: var(--paper);
+  font-size: 14px;
+  box-shadow: 0 10px 30px rgba(9, 23, 35, 0.25);
+}
+.natal-resumo strong { color: var(--ouro-claro); font-weight: 600; }
+.natal-resumo-sinal { color: var(--ouro); font-size: 13px; }
+.natal-resumo.vazio { background: #F4EADB; color: var(--cocoa); box-shadow: none; position: static; }
+.natal-resumo.vazio strong { color: var(--noite); }
+
+@media (max-width: 1100px) {
+  .natal-qtd { grid-template-columns: 1fr; }
+}
+@media (max-width: 860px) {
+  #encomendar > div:first-child { position: static; }
+}
+@media (max-width: 520px) {
+  .reserva-info { padding: 22px 18px 18px; }
+  .reserva-info dl > div { grid-template-columns: 1fr; gap: 4px; }
+  .natal-qtd .linha:has(.linha-foto) { grid-template-columns: 56px 1fr auto; }
+  .natal-qtd .linha:has(.linha-foto) .linha-foto { align-self: center; }
+  .linha-foto { width: 56px; height: 56px; }
+}

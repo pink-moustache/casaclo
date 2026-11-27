@@ -383,7 +383,15 @@
           <div class="eyebrow"><span class="natal-estrela">✦</span> Pré-venda de Natal</div>
           <h2>Reserve o seu Natal.</h2>
           <p>Escolha os doces e o dia. Ao carregar em "Reservar por WhatsApp", a mensagem abre já escrita: é só enviar. A Clo responde em 24-48h com a confirmação, o total e os dados para o sinal.</p>
-          <p class="natal-aviso" style="margin-top: 24px;"><strong>Pagamento:</strong> sinal de <span class="ph">50%</span> por MB WAY (<span class="ph">9xx xxx xxx</span>) ou transferência bancária, para garantir a reserva. O restante paga-se na entrega.<br><strong>Entrega:</strong> 5€ em Lisboa, grátis em encomendas acima de 100€.</p>
+          <div class="reserva-info" aria-label="Pagamento e entrega">
+            <p class="reserva-info-titulo"><span aria-hidden="true">✦</span> Como funciona</p>
+            <dl>
+              <div><dt>Sinal</dt><dd><strong><span class="ph">50%</span> para garantir a reserva</strong>por MB WAY para o <a href="tel:+351966845351" class="reserva-mbway">966 845 351</a> (Clo) ou por transferência bancária.</dd></div>
+              <div><dt>Restante</dt><dd><strong>Paga-se na entrega</strong>no dia que escolher para receber os doces.</dd></div>
+              <div><dt>Entrega</dt><dd><strong>5€ em Lisboa</strong>e grátis em encomendas acima de 100€.</dd></div>
+            </dl>
+            <p class="reserva-info-prazo">Reservas até <span data-natal-data="fimEncomendas">20 de dezembro</span></p>
+          </div>
         </div>
 
         <div>
@@ -394,6 +402,9 @@
             <div>
               <label>Os seus doces de Natal</label>
               <div class="natal-qtd">
+              <!-- A foto e o preço de cada linha vêm do cartão do doce acima (data-natal-produto), via natal.js.
+                   O preço escrito aqui é só a versão sem JavaScript: ao mudar um preço, mudar no cartão e aqui. -->
+              <p class="natal-qtd-grupo">Especiais 2026</p>
               <div class="linha natal-qtd-destaque">
                 <label for="qtd-torre">Árvore Gingerbread <small>✦ especial 2026</small></label>
                 <span class="price">Desde 280€</span>
@@ -404,6 +415,7 @@
                 <span class="price">Desde 85€</span>
                 <input id="qtd-cone" name="qtd-cone" type="number" min="0" max="5" value="0" inputmode="numeric">
               </div>
+              <p class="natal-qtd-grupo">Aldeia de gengibre</p>
               <div class="linha">
                 <label for="qtd-aldeia">Rua de Natal</label>
                 <span class="price">Desde 180€</span>
@@ -424,6 +436,7 @@
                 <span class="price">Desde 85€</span>
                 <input id="qtd-casa-capelinha" name="qtd-casa-capelinha" type="number" min="0" max="20" value="0" inputmode="numeric">
               </div>
+              <p class="natal-qtd-grupo">Chocolates e miniaturas</p>
               <div class="linha">
                 <label for="qtd-ursinhos">Ursinhos Polares</label>
                 <span class="price">Desde 33€</span>
@@ -445,6 +458,11 @@
                 <input id="qtd-pinhas" name="qtd-pinhas" type="number" min="0" max="50" value="0" inputmode="numeric">
               </div>
               <div class="linha">
+                <label for="qtd-arvores">Árvores de Trufas</label>
+                <span class="price">Desde 48€</span>
+                <input id="qtd-arvores" name="qtd-arvores" type="number" min="0" max="50" value="0" inputmode="numeric">
+              </div>
+              <div class="linha">
                 <label for="qtd-suspiros">Suspiros Casa Clo</label>
                 <span class="price">Desde 8€</span>
                 <input id="qtd-suspiros" name="qtd-suspiros" type="number" min="0" max="50" value="0" inputmode="numeric">
@@ -459,6 +477,7 @@
                 <span class="price">Desde 35€</span>
                 <input id="qtd-caixa" name="qtd-caixa" type="number" min="0" max="50" value="0" inputmode="numeric">
               </div>
+              <p class="natal-qtd-grupo">Bolos e sobremesas</p>
               <div class="linha">
                 <label for="qtd-bolo">Charlotte de Castanha</label>
                 <span class="price">Desde 58€</span>
@@ -503,11 +522,6 @@
                 <label for="qtd-frutos">Bolo de Chocolate e Frutos Vermelhos</label>
                 <span class="price">Desde 62€</span>
                 <input id="qtd-frutos" name="qtd-frutos" type="number" min="0" max="50" value="0" inputmode="numeric">
-              </div>
-              <div class="linha">
-                <label for="qtd-arvores">Árvores de Trufas</label>
-                <span class="price">Desde 48€</span>
-                <input id="qtd-arvores" name="qtd-arvores" type="number" min="0" max="50" value="0" inputmode="numeric">
               </div>
               </div>
             </div>
