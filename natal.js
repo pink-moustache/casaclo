@@ -94,6 +94,92 @@
   var WHATSAPP = '351966845351';
   var EMAIL = 'encomendas@casaclodoces.com';
 
+  // Nome do doce sem o selo ("✦ especial 2026")
+  function nomeDoce(linha) {
+    var label = linha.querySelector('label').cloneNode(true);
+    label.querySelectorAll('small').forEach(function (s) { s.remove(); });
+    return label.textContent.trim();
+  }
+
+  function euros(n) { return n.toLocaleString('pt-PT') + '€'; }
+  function precoDe(txt) { var m = /(\d+(?:[.,]\d+)?)\s*€/.exec(txt || ''); return m ? Number(m[1].replace(',', '.')) : 0; }
+
+  /* Lista de doces da reserva: foto e preço vêm do cartão de cada doce
+     (o elemento com data-natal-produto="qtd-…"), botões − / + e resumo. */
+  function prepararLista(form) {
+    var linhas = form.querySelectorAll('.natal-qtd .linha');
+    if (!linhas.length) return;
+
+    linhas.forEach(function (l) {
+      var input = l.querySelector('input');
+      var origem = document.querySelector('[data-natal-produto="' + input.id + '"]');
+      var cartao = origem && (origem.closest('article') || origem.closest('section'));
+      var precoEl = l.querySelector('.price');
+      if (cartao) {
+        var img = cartao.querySelector('img');
+        var preco = cartao.querySelector('.price');
+        if (preco && precoEl) precoEl.textContent = preco.textContent.trim();
+        if (img) {
+          var foto = document.createElement('span');
+          foto.className = 'linha-foto';
+          foto.setAttribute('aria-hidden', 'true');
+          var t = document.createElement('img');
+          t.src = img.currentSrc || img.src; t.alt = ''; t.loading = 'lazy'; t.decoding = 'async';
+          foto.appendChild(t);
+          l.insertBefore(foto, l.firstChild);
+        }
+      }
+      l.dataset.preco = precoDe(precoEl && precoEl.textContent);
+
+      // Passo − / +
+      var passo = document.createElement('span');
+      passo.className = 'linha-passo';
+      var menos = document.createElement('button');
+      menos.type = 'button'; menos.textContent = '−';
+      menos.setAttribute('aria-label', 'Menos ' + nomeDoce(l));
+      var mais = document.createElement('button');
+      mais.type = 'button'; mais.textContent = '+';
+      mais.setAttribute('aria-label', 'Mais ' + nomeDoce(l));
+      input.parentNode.insertBefore(passo, input);
+      passo.appendChild(menos); passo.appendChild(input); passo.appendChild(mais);
+      function mudar(d) {
+        var max = Number(input.max) || 99;
+        input.value = Math.min(max, Math.max(0, (Number(input.value) || 0) + d));
+        input.dispatchEvent(new Event('input', { bubbles: true }));
+      }
+      menos.addEventListener('click', function () { mudar(-1); });
+      mais.addEventListener('click', function () { mudar(1); });
+    });
+
+    // Resumo: n.º de doces e valor "desde"
+    var resumo = document.createElement('div');
+    resumo.className = 'natal-resumo';
+    resumo.setAttribute('aria-live', 'polite');
+    form.querySelector('.natal-qtd').after(resumo);
+
+    function atualizar() {
+      var qtd = 0, total = 0;
+      linhas.forEach(function (l) {
+        var n = Number(l.querySelector('input').value) || 0;
+        l.classList.toggle('escolhida', n > 0);
+        qtd += n; total += n * (Number(l.dataset.preco) || 0);
+      });
+      resumo.classList.toggle('vazio', !qtd);
+      resumo.innerHTML = qtd
+        ? '<span><strong>' + qtd + (qtd === 1 ? ' doce' : ' doces') + '</strong> · desde ' + euros(total) + '</span>'
+          + '<span class="natal-resumo-sinal">Sinal de 50%: desde ' + euros(Math.ceil(total / 2)) + '</span>'
+        : '<span>Escolha os doces com <strong>+</strong>. O total aparece aqui.</span>';
+    }
+    form.addEventListener('input', atualizar);
+    form.addEventListener('change', atualizar);
+    // "Reservar" num cartão mexe no valor sem evento: atualiza ao chegar ao formulário
+    window.addEventListener('hashchange', atualizar);
+    document.querySelectorAll('[data-natal-produto]').forEach(function (a) {
+      a.addEventListener('click', function () { setTimeout(atualizar, 0); });
+    });
+    atualizar();
+  }
+
   function ligarReserva() {
     var form = document.getElementById('natalForm');
     if (!form) return;
@@ -113,13 +199,15 @@
       });
     });
 
+    prepararLista(form);
+
     form.addEventListener('submit', function (e) {
       e.preventDefault();
 
       var doces = [];
       form.querySelectorAll('.natal-qtd .linha').forEach(function (l) {
         var n = Number(l.querySelector('input').value) || 0;
-        if (n > 0) doces.push('• ' + n + ' × ' + l.querySelector('label').textContent.trim());
+        if (n > 0) doces.push('• ' + n + ' × ' + nomeDoce(l));
       });
       if (!doces.length) {
         aviso('Escolha pelo menos um doce (quantidade maior que 0).');
