@@ -93,6 +93,9 @@
      o WhatsApp da Casa Clo com a reserva já escrita. */
   var WHATSAPP = '351966845351';
   var EMAIL = 'encomendas@casaclodoces.com';
+  var MBWAY = '966 845 351';
+  var SINAL = 0.5;                                // 50% de sinal
+  var ENTREGA = { lisboa: 5, gratisAcima: 100 };  // Margem Sul: a Clo confirma
 
   // Nome do doce sem o selo ("✦ especial 2026")
   function nomeDoce(linha) {
@@ -130,6 +133,7 @@
         }
       }
       l.dataset.preco = precoDe(precoEl && precoEl.textContent);
+      l.dataset.desde = /desde/i.test(precoEl ? precoEl.textContent : '') ? '1' : '';
 
       // Passo − / +
       var passo = document.createElement('span');
@@ -204,10 +208,13 @@
     form.addEventListener('submit', function (e) {
       e.preventDefault();
 
-      var doces = [];
+      var doces = [], subtotal = 0;
       form.querySelectorAll('.natal-qtd .linha').forEach(function (l) {
         var n = Number(l.querySelector('input').value) || 0;
-        if (n > 0) doces.push('• ' + n + ' × ' + nomeDoce(l));
+        if (n < 1) return;
+        var preco = Number(l.dataset.preco) || 0;
+        subtotal += n * preco;
+        doces.push('• ' + n + ' × ' + nomeDoce(l) + (preco ? ' (' + (l.dataset.desde ? 'desde ' : '') + euros(preco) + ') = ' + euros(n * preco) : ''));
       });
       if (!doces.length) {
         aviso('Escolha pelo menos um doce (quantidade maior que 0).');
@@ -218,15 +225,27 @@
 
       var d = new FormData(form);
       var alergias = d.getAll('alergias').join(', ');
+      // Contas (valores "desde": a Clo confirma o total final)
+      var lisboa = /lisboa/i.test(d.get('entrega') || '');
+      var entrega = lisboa ? (subtotal > ENTREGA.gratisAcima ? 0 : ENTREGA.lisboa) : null;
+      var total = subtotal + (entrega || 0);
+      var sinal = Math.ceil(total * SINAL);
+      var mbway = /mb ?way/i.test(d.get('pagamento') || '');
       var linhas = [
         'Olá Clo! Queria fazer uma reserva de Natal:',
         '',
         doces.join('\n'),
         '',
+        'Subtotal: desde ' + euros(subtotal),
+        'Entrega (' + (lisboa ? 'Lisboa' : 'Margem Sul') + '): ' +
+          (entrega === null ? 'a confirmar' : entrega === 0 ? 'grátis (acima de ' + euros(ENTREGA.gratisAcima) + ')' : euros(entrega)),
+        'Total estimado: desde ' + euros(total) + (entrega === null ? ' + entrega' : ''),
+        'Sinal de ' + Math.round(SINAL * 100) + '%: desde ' + euros(sinal) +
+          (mbway ? ' por MB WAY para o ' + MBWAY : ' por transferência bancária'),
+        '',
         'Nome: ' + d.get('nome'),
         'Dia: ' + d.get('dia'),
-        d.get('entrega') + ': ' + d.get('zona'),
-        'Sinal por: ' + d.get('pagamento')
+        'Morada de entrega: ' + d.get('zona')
       ];
       if (alergias) linhas.push('Alergias: ' + alergias);
       if (d.get('mensagem')) linhas.push('', 'Notas: ' + d.get('mensagem'));
