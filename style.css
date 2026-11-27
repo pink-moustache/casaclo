@@ -2327,3 +2327,5 @@ html.natal .collection-block .product-grid .cartao-destaque { grid-column: 1 / -
   .natal-qtd .linha:has(.linha-foto) .linha-foto { align-self: center; }
   .linha-foto { width: 56px; height: 56px; }
 }
+.natal-qtd .linha .price .linha-unidade { display: block; font-family: var(--sans, inherit); font-size: 11px; line-height: 1.3; letter-spacing: 0.02em; color: var(--cocoa); white-space: normal; margin-top: 1px; }
+.natal-qtd .linha .price { min-width: 0; }

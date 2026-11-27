@@ -104,6 +104,14 @@
     return label.textContent.trim();
   }
 
+  // Valor de n unidades, usando o conjunto (ex.: 3 por 38€) quando compensa
+  function valorLinha(l, n) {
+    var preco = Number(l.dataset.preco) || 0;
+    var pn = Number(l.dataset.packN) || 0, pp = Number(l.dataset.packPreco) || 0;
+    if (pn > 1 && pp) return Math.floor(n / pn) * pp + (n % pn) * preco;
+    return n * preco;
+  }
+
   function euros(n) { return n.toLocaleString('pt-PT') + '€'; }
   function precoDe(txt) { var m = /(\d+(?:[.,]\d+)?)\s*€/.exec(txt || ''); return m ? Number(m[1].replace(',', '.')) : 0; }
 
@@ -122,6 +130,9 @@
         var img = cartao.querySelector('img');
         var preco = cartao.querySelector('.price');
         if (preco && precoEl) precoEl.textContent = preco.textContent.trim();
+        // Conjunto no texto do cartão, ex.: "(3 por 38€)"
+        var pack = /(\d+)\s+por\s+(\d+(?:[.,]\d+)?)\s*€/.exec(cartao.textContent);
+        if (pack) { l.dataset.packN = pack[1]; l.dataset.packPreco = pack[2].replace(',', '.'); }
         if (img) {
           var foto = document.createElement('span');
           foto.className = 'linha-foto';
@@ -134,6 +145,19 @@
       }
       l.dataset.preco = precoDe(precoEl && precoEl.textContent);
       l.dataset.desde = /desde/i.test(precoEl ? precoEl.textContent : '') ? '1' : '';
+      // Unidade depois do preço ("Desde 14€ · unidade"): vai para uma 2.ª linha pequena
+      if (precoEl) {
+        var partes = precoEl.textContent.split('·');
+        var unidade = partes.slice(1).join('·').trim();
+        if (l.dataset.packN) unidade += (unidade ? ' · ' : '') + l.dataset.packN + ' por ' + euros(Number(l.dataset.packPreco));
+        l.dataset.unidade = unidade;
+        if (unidade) {
+          precoEl.textContent = partes[0].trim();
+          var u = document.createElement('small');
+          u.className = 'linha-unidade'; u.textContent = unidade;
+          precoEl.appendChild(u);
+        }
+      }
 
       // Passo − / +
       var passo = document.createElement('span');
@@ -166,7 +190,7 @@
       linhas.forEach(function (l) {
         var n = Number(l.querySelector('input').value) || 0;
         l.classList.toggle('escolhida', n > 0);
-        qtd += n; total += n * (Number(l.dataset.preco) || 0);
+        qtd += n; total += valorLinha(l, n);
       });
       resumo.classList.toggle('vazio', !qtd);
       resumo.innerHTML = qtd
@@ -213,8 +237,10 @@
         var n = Number(l.querySelector('input').value) || 0;
         if (n < 1) return;
         var preco = Number(l.dataset.preco) || 0;
-        subtotal += n * preco;
-        doces.push('• ' + n + ' × ' + nomeDoce(l) + (preco ? ' (' + (l.dataset.desde ? 'desde ' : '') + euros(preco) + ') = ' + euros(n * preco) : ''));
+        var valor = valorLinha(l, n);
+        subtotal += valor;
+        doces.push('• ' + n + ' × ' + nomeDoce(l) + (preco ? ' (' + (l.dataset.desde ? 'desde ' : '') + euros(preco)
+          + (l.dataset.unidade ? ' · ' + l.dataset.unidade : '') + ') = ' + euros(valor) : ''));
       });
       if (!doces.length) {
         aviso('Escolha pelo menos um doce (quantidade maior que 0).');
