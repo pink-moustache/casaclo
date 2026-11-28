@@ -346,6 +346,7 @@
   }
 
   function abrirWhatsApp(texto) {
+    if (window.casaCloComOrigem) texto = window.casaCloComOrigem(texto);
     var url = 'https://wa.me/' + CONFIG.whatsapp + '?text=' + encodeURIComponent(texto);
     var janela = window.open(url, '_blank');
     if (janela) janela.opener = null; else window.location.href = url;
