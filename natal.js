@@ -276,6 +276,7 @@
       if (alergias) linhas.push('Alergias: ' + alergias);
       if (d.get('mensagem')) linhas.push('', 'Notas: ' + d.get('mensagem'));
       var texto = linhas.join('\n');
+      if (window.casaCloComOrigem) texto = window.casaCloComOrigem(texto);
 
       var wa = 'https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent(texto);
       var mail = 'mailto:' + EMAIL + '?subject=' + encodeURIComponent('Reserva de Natal — ' + d.get('nome'))

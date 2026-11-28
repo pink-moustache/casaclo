@@ -5,6 +5,46 @@
    - Ano dinâmico no footer
    ============================================================ */
 
+/* ---------- 0. De onde veio a visita (anúncios) ----------
+   Quando alguém chega por um link de anúncio (com utm_content ou
+   utm_source), guarda-se a origem só neste separador (sessionStorage, sem
+   cookies, nada sai do navegador) e as mensagens de WhatsApp levam uma
+   linha no fim, ex.: "(Vi o anúncio: Árvore Gingerbread)". Assim a Clo vê
+   no próprio WhatsApp que reservas vieram de que anúncio.
+   Nomes bonitos para os anúncios da campanha: ANUNCIOS abaixo. */
+(function () {
+  var ANUNCIOS = {
+    'arvore-gingerbread': 'Árvore Gingerbread',
+    'rua-de-natal': 'Rua de Natal',
+    'caixa-consoada': 'Caixa da Consoada',
+    'ultimas-reservas': 'Últimas reservas'
+  };
+  var CHAVE = 'casaclo-origem';
+  // Só letras, números, - e _ (o link pode ser escrito por qualquer pessoa)
+  function limpo(v) { return (v || '').toLowerCase().replace(/[^a-z0-9_-]/g, '').slice(0, 40); }
+  try {
+    var q = new URLSearchParams(window.location.search);
+    var conteudo = limpo(q.get('utm_content'));
+    var fonte = limpo(q.get('utm_source'));
+    var texto = '';
+    if (conteudo) texto = 'Vi o anúncio: ' + (ANUNCIOS[conteudo] || conteudo.replace(/[-_]+/g, ' '));
+    else if (fonte) texto = 'Vim por: ' + fonte;
+    if (texto) sessionStorage.setItem(CHAVE, texto);
+  } catch (e) { /* sem sessionStorage: segue sem origem */ }
+
+  // Devolve a linha a juntar à mensagem, ou '' se a visita não veio de um anúncio
+  window.casaCloOrigem = function () {
+    try {
+      var t = sessionStorage.getItem(CHAVE);
+      return t ? '(' + t + ')' : '';
+    } catch (e) { return ''; }
+  };
+  window.casaCloComOrigem = function (texto) {
+    var o = window.casaCloOrigem();
+    return o ? texto + '\n\n' + o : texto;
+  };
+})();
+
 document.addEventListener('DOMContentLoaded', function () {
 
   /* ---------- 1. Menu mobile ---------- */
@@ -132,7 +172,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var status = form.querySelector('.form-note');
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-      var url = 'https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent(textoDoPedido(form));
+      var url = 'https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent(window.casaCloComOrigem(textoDoPedido(form)));
       // Sem 'noopener' no open(): com ele o browser devolve sempre null
       var janela = window.open(url, '_blank');
       if (janela) janela.opener = null;
@@ -156,7 +196,7 @@ document.addEventListener('DOMContentLoaded', function () {
     + ' e gostava de fazer uma pergunta.';
   var fab = document.createElement('a');
   fab.className = 'whatsapp-fab';
-  fab.href = 'https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent(saudacao);
+  fab.href = 'https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent(window.casaCloComOrigem(saudacao));
   fab.target = '_blank';
   fab.rel = 'noopener';
   fab.setAttribute('aria-label', 'Falar com a Clo pelo WhatsApp');
